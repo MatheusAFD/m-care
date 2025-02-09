@@ -1,0 +1,1 @@
+export { registerCompany } from './registerCompany'
