@@ -1,3 +1,8 @@
+'use server'
+
+import { env } from '@m-care/env'
+import { getAuthToken } from '../utils'
+
 export type RequestConfig<TData = unknown> = {
   baseURL?: string
   url?: string
@@ -13,6 +18,8 @@ export type RequestConfig<TData = unknown> = {
     | 'stream'
   signal?: AbortSignal
   headers?: HeadersInit
+  cache?: RequestCache
+  next?: NextFetchRequestConfig
 }
 
 export type ResponseConfig<TData = unknown, TError = unknown> =
@@ -23,14 +30,23 @@ export const httpClientFetch = async <
   TData,
   TError = unknown,
   TVariables = unknown
->(
-  config: RequestConfig<TVariables>
-): Promise<ResponseConfig<TData, TError>> => {
-  const response = await fetch(`${config.baseURL}${config.url}`, {
+>({
+  baseURL = env.NEXT_PUBLIC_API_URL,
+  ...config
+}: RequestConfig<TVariables>): Promise<ResponseConfig<TData, TError>> => {
+  const token = await getAuthToken()
+
+  const response = await fetch(`${baseURL}${config.url}`, {
     method: config.method.toUpperCase(),
     body: config.data ? JSON.stringify(config.data) : undefined,
     signal: config.signal,
-    headers: config.headers
+    headers: {
+      ...config.headers,
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token?.value}`
+    },
+    cache: config.cache,
+    next: config.next
   })
 
   const data = await response.json()
