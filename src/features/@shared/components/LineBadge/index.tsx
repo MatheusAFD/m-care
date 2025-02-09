@@ -1,6 +1,6 @@
-import { cn } from '@m-care/features/@shared/lib/utils'
 import { cva, VariantProps } from 'class-variance-authority'
-import { PropsWithChildren } from 'react'
+
+import { cn } from '@m-care/features/@shared/lib/utils'
 
 const badgeVariants = cva('rounded-lg mb-1', {
   variants: {
@@ -11,7 +11,7 @@ const badgeVariants = cva('rounded-lg mb-1', {
     size: {
       default: 'w-10 h-[6px]',
       sm: 'w-8 h-[6px]',
-      lg: 'w-14 h-[6px]'
+      lg: 'w-14 h-[6px] mb-2'
     }
   },
   defaultVariants: {
@@ -24,19 +24,15 @@ type BadgeProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof badgeVariants>
 
 export const LineBadge = ({
-  children,
   size,
   variant,
   className,
   ...props
-}: PropsWithChildren<BadgeProps>) => {
+}: BadgeProps) => {
   return (
-    <>
-      <div
-        className={cn(badgeVariants({ variant, size, className }))}
-        {...props}
-      />
-      {children}
-    </>
+    <div
+      className={cn(badgeVariants({ variant, size, className }))}
+      {...props}
+    />
   )
 }

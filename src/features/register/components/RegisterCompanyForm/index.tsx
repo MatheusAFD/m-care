@@ -1,6 +1,7 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import {
   MaskField,
@@ -21,15 +22,15 @@ const registerCompanySchema = z.object({
   password: z.string().nonempty({ message: 'O campo é obrigatório' })
 })
 
-export type registerCompanyFormData = z.infer<typeof registerCompanySchema>
+export type RegisterCompanyFormData = z.infer<typeof registerCompanySchema>
 
 export const RegisterCompanyForm = () => {
   const {
     register,
     control,
     handleSubmit,
-    formState: { errors, isSubmitting }
-  } = useForm<registerCompanyFormData>({
+    formState: { errors, isValid, isSubmitting }
+  } = useForm<RegisterCompanyFormData>({
     mode: 'onTouched',
     reValidateMode: 'onChange',
     resolver: zodResolver(registerCompanySchema),
@@ -38,12 +39,15 @@ export const RegisterCompanyForm = () => {
     }
   })
 
-  const onSubmit = async (formData: registerCompanyFormData) => {
+  const onSubmit = async (formData: RegisterCompanyFormData) => {
     const [error, data] = await registerCompany(formData)
 
     if (error) {
-      return
+      toast.error('Erro ao cadastrar empresa.')
+      return error
     }
+
+    toast.success('Empresa cadastrada com sucesso!')
 
     return data
   }
@@ -97,6 +101,7 @@ export const RegisterCompanyForm = () => {
         type="submit"
         size="lg"
         className="place-self-end col-span-2"
+        disabled={!isValid || isSubmitting}
         isLoading={isSubmitting}
       >
         Finalizar
