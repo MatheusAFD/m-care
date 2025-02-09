@@ -1,18 +1,34 @@
+import { Metadata } from 'next'
+
+import { RegisterCompanyForm } from '@m-care/features/register/components'
+import { LineBadge } from '@m-care/features/@shared/components'
+import Image from 'next/image'
+
+export const metadata: Metadata = {
+  title: 'Registro'
+}
+
 export default function RegisterPage() {
   return (
-    <main className="p-4">
-      <section className=" flex justify-center w-full">
-        <div className="w-[44rem] p-4 rounded-lg grid grid-cols-2 gap-4 bg-white">
-          <div className="flex flex-col">
-            <label htmlFor="email">Email:</label>
-            <input id="email" type="email" placeholder="Email" />
+    <>
+      <Image
+        src="/register-background.svg"
+        width={400}
+        height={400}
+        alt="Ondas verdes"
+        className="fixed left-0 w-full"
+        priority
+      />
+      <main className="p-8 h-screen relative">
+        <section className=" flex justify-center w-full mt-8">
+          <div className="w-[56rem] p-12 shadow-md rounded-lg bg-white">
+            <LineBadge />
+            <h1 className="text-xl font-medium pb-6">Cadastro</h1>
+
+            <RegisterCompanyForm />
           </div>
-          <div className="flex flex-col">
-            <label htmlFor="">Nome fantasia:</label>
-            <input id="fantasyName" type="email" placeholder="Email" />
-          </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </>
   )
 }
