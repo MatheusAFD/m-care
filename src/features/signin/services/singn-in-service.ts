@@ -26,7 +26,7 @@ export const signin = async (data: SigninFormData) => {
   const cookiesService = await cookies()
 
   cookiesService.set({
-    name: 'token',
+    name: 'mcare-token',
     value: response!.accessToken,
     httpOnly: true,
     secure: true
