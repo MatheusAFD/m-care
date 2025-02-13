@@ -1,6 +1,6 @@
 import { CustomCard, LineBadge } from '@m-care/features/@shared/components'
 
-import { SigninForm } from '@m-care/features/signin/components'
+import { SigninForm } from '@m-care/features/sign-in/components'
 
 export default function SigninPage() {
   return (

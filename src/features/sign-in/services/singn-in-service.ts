@@ -9,7 +9,7 @@ interface SigninResponse {
   accessToken: string
 }
 
-export const signin = async (data: SigninFormData) => {
+export const signIn = async (data: SigninFormData) => {
   const [error, response] = await httpClientFetch<SigninResponse>({
     method: 'POST',
     url: '/auth/signin',
@@ -26,7 +26,7 @@ export const signin = async (data: SigninFormData) => {
   const cookiesService = await cookies()
 
   cookiesService.set({
-    name: 'token',
+    name: 'mcare-token',
     value: response!.accessToken,
     httpOnly: true,
     secure: true
