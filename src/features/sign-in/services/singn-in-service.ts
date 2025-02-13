@@ -9,7 +9,7 @@ interface SigninResponse {
   accessToken: string
 }
 
-export const signin = async (data: SigninFormData) => {
+export const signIn = async (data: SigninFormData) => {
   const [error, response] = await httpClientFetch<SigninResponse>({
     method: 'POST',
     url: '/auth/signin',

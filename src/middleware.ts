@@ -34,7 +34,7 @@ export function middleware(request: NextRequest) {
   ) {
     const redirectUrl = request.nextUrl.clone()
 
-    redirectUrl.pathname = '/'
+    redirectUrl.pathname = '/home'
 
     return NextResponse.redirect(redirectUrl)
   }
@@ -51,10 +51,10 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(redirectUrl)
     }
 
-    NextResponse.next()
+    return NextResponse.next()
   }
 
-  NextResponse.next()
+  return NextResponse.next()
 }
 
 export const config: MiddlewareConfig = {

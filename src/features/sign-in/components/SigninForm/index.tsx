@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { signin } from '../../services'
+import { signIn } from '../../services'
 
 import { PasswordField, TextField } from '@m-care/features/@shared/components'
 import { Button } from '@m-care/features/@shared/components/ui'
@@ -29,7 +29,7 @@ export const SigninForm = () => {
   })
 
   const onSubmit = async (formData: SigninFormData) => {
-    const [error, response] = await signin(formData)
+    const [error, response] = await signIn(formData)
 
     if (error) {
       toast.error('Erro ao entrar, email ou senha inválidos.', {

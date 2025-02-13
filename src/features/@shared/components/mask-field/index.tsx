@@ -5,7 +5,7 @@ import { InputHTMLAttributes, useMemo, useState } from 'react'
 import IMask from 'imask'
 import { Controller, FieldValues } from 'react-hook-form'
 
-import { TextField } from '../TextField'
+import { TextField } from '../text-field'
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string
