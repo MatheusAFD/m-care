@@ -1,1 +1,1 @@
-export { signin } from './singn-in-service'
+export { signIn } from './singn-in-service'
