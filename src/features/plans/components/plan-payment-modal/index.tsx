@@ -57,15 +57,13 @@ export const PlanPaymentModal = ({
       planId
     })
 
-    console.log(error)
-
     setIsPending(false)
 
     if (!!error || !!paymentMethodError) {
       toast.error('Erro', {
         description: 'Ocorreu um erro ao processar o pagamento.',
         position: 'top-center',
-        richColors: true
+        id: 'after-payment'
       })
 
       return
@@ -73,10 +71,10 @@ export const PlanPaymentModal = ({
 
     onClose?.()
 
-    toast.info('Aguarde!', {
+    toast.loading('Aguarde!', {
       description: 'Estamos processando o seu pagamento.',
       position: 'top-center',
-      richColors: true
+      id: 'after-payment'
     })
 
     return response
