@@ -2,7 +2,10 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 
 import './globals.css'
+
 import { Toaster } from '@m-care/features/@shared/components/ui'
+
+import { GlobalProviders } from '@m-care/features/@shared/context'
 
 const roboto = Poppins({
   subsets: ['latin'],
@@ -25,8 +28,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body className={`${roboto.className} bg-grey-lite text-black`}>
-        {children}
-        <Toaster richColors={true} />
+        <GlobalProviders>
+          {children}
+          <Toaster richColors={true} />
+        </GlobalProviders>
       </body>
     </html>
   )
