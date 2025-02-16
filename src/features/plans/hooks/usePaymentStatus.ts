@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { io } from 'socket.io-client'
 import { toast } from 'sonner'
+import { io } from 'socket.io-client'
+
 import { env } from '@m-care/env'
 
-const socket = io(`${env.NEXT_PUBLIC_API_URL}/websocket/payment-events`)
+import { useGetMe } from '@m-care/features/@shared/hooks'
 
 interface SocketMessage {
   companyId: string
@@ -16,6 +17,7 @@ interface UsePaymentStatusParams {
   onApproved?: VoidFunction
   onFailed?: VoidFunction
 }
+const socket = io(`${env.NEXT_PUBLIC_API_URL}/websocket/payment-events`)
 
 export const usePaymentStatus = ({
   onApproved,
@@ -23,8 +25,15 @@ export const usePaymentStatus = ({
 }: UsePaymentStatusParams) => {
   const router = useRouter()
 
+  const { data, refetch } = useGetMe()
+
+  const companyId = data?.companyId
+
   useEffect(() => {
-    const companyId = '01JM5WV6SA7SJVZGZ8WV0T9057'
+    if (!companyId) {
+      return
+    }
+
     socket.emit('subscribeToCompany', { companyId })
 
     socket.on('payment-status', (data: SocketMessage) => {
@@ -38,6 +47,8 @@ export const usePaymentStatus = ({
             onClick: () => router.push('/home')
           }
         })
+
+        refetch()
 
         onApproved?.()
 
@@ -54,6 +65,8 @@ export const usePaymentStatus = ({
           duration: 8000
         })
 
+        refetch()
+
         onFailed?.()
 
         return
@@ -65,5 +78,5 @@ export const usePaymentStatus = ({
       socket.disconnect()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [companyId])
 }
