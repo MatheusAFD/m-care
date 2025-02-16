@@ -1,2 +1,5 @@
 export { PlanCard } from './plan-card'
 export { PlansOptions } from './plans-options'
+export { PlanPaymentModal } from './plan-payment-modal'
+export { PlansTable } from './plans-table'
+export { PlansList } from './plans-list'
