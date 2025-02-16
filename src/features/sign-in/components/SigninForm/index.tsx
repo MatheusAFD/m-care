@@ -23,7 +23,7 @@ export const SigninForm = () => {
     handleSubmit,
     formState: { errors, isValid, isSubmitting }
   } = useForm<SigninFormData>({
-    mode: 'onTouched',
+    mode: 'onSubmit',
     reValidateMode: 'onChange',
     resolver: zodResolver(signinSchema)
   })
@@ -32,7 +32,8 @@ export const SigninForm = () => {
     const [error, response] = await signIn(formData)
 
     if (error) {
-      toast.error('Erro ao entrar, email ou senha inválidos.', {
+      toast.error('Erro!', {
+        description: 'Erro ao entrar, email ou senha inválidos.',
         position: 'top-center'
       })
 
@@ -40,6 +41,7 @@ export const SigninForm = () => {
     }
 
     toast.success('Sucesso!', {
+      description: 'Você será redirecionado em alguns instantes.',
       position: 'top-center'
     })
 

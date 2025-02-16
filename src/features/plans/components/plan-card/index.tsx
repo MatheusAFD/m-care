@@ -6,9 +6,10 @@ import { formatToMonetaryValue } from '@m-care/features/@shared/utils'
 
 interface PlanCardProps {
   plan: Plan
+  onSelectPlan: VoidFunction
 }
 
-export const PlanCard = ({ plan }: PlanCardProps) => {
+export const PlanCard = ({ plan, onSelectPlan }: PlanCardProps) => {
   const { name, description, price, isFree, isRecommended } = plan
 
   const isTertiary = !isFree && !isRecommended
@@ -42,7 +43,12 @@ export const PlanCard = ({ plan }: PlanCardProps) => {
         <strong className="text-4xl font-bold">
           {isFree ? 'Free' : formatToMonetaryValue(price)}
         </strong>
-        <Button variant={isRecommended ? 'default' : 'outline'} size="lg">
+
+        <Button
+          variant={isRecommended ? 'default' : 'outline'}
+          size="lg"
+          onClick={onSelectPlan}
+        >
           Get Started
         </Button>
       </div>
