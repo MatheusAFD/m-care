@@ -23,10 +23,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
       <body className={`${roboto.className} bg-grey-lite text-black`}>
         {children}
-        <Toaster />
+        <Toaster richColors={true} />
       </body>
     </html>
   )
