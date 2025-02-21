@@ -136,7 +136,12 @@ export const PlanPaymentModal = ({
 
           <DialogFooter className="place-self-start mt-4">
             <DialogClose asChild>
-              <Button variant="outline" disabled={isPending} onClick={onClose}>
+              <Button
+                variant="outline"
+                disabled={isPending}
+                onClick={onClose}
+                size="lg"
+              >
                 Cancelar
               </Button>
             </DialogClose>
@@ -144,6 +149,7 @@ export const PlanPaymentModal = ({
               type="submit"
               isLoading={isPending}
               disabled={!formIsValid || isPending}
+              size="lg"
             >
               Pagar
             </Button>
