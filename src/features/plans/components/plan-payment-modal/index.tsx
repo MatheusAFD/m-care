@@ -18,25 +18,34 @@ import {
 import { DialogProps } from '@m-care/features/@shared/types'
 
 import { createSubscription } from '@m-care/features/plans/services'
+import { formatToMonetaryValue } from '@m-care/features/@shared/utils'
 
 interface PlanPaymentModalProps extends DialogProps {
-  planId: string
+  selectedPlan: {
+    id: string
+    name: string
+    price: string | number
+  }
 }
 
 export const PlanPaymentModal = ({
-  planId,
+  selectedPlan,
   isOpen,
   onOpenChange,
   onClose
 }: PlanPaymentModalProps) => {
+  const [isPending, setIsPending] = useState(false)
+  const [formIsValid, setFormIsValid] = useState(false)
+
   const stripe = useStripe()
   const elements = useElements()
-  const [isPending, setIsPending] = useState(false)
+
+  const { id, price, name } = selectedPlan
 
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
 
-    if (!stripe || !elements || !planId) {
+    if (!stripe || !elements || !id) {
       return
     }
 
@@ -54,7 +63,7 @@ export const PlanPaymentModal = ({
 
     const [error, response] = await createSubscription({
       paymentMethodId: paymentMethod!.id,
-      planId
+      planId: id
     })
 
     setIsPending(false)
@@ -99,12 +108,28 @@ export const PlanPaymentModal = ({
           </DialogDescription>
         </DialogHeader>
 
+        <dl>
+          <div className="flex justify-between">
+            <dt className="text-sm text-zinc-500">Plano selecionado</dt>
+            <dd className="font-medium">{name}</dd>
+          </div>
+
+          <div className="flex justify-between">
+            <dt className="text-sm text-zinc-500">Preço</dt>
+            <dd className="font-medium">{formatToMonetaryValue(price)}</dd>
+          </div>
+        </dl>
+
         <form onSubmit={onSubmit}>
           <div className="py-4">
             <CardElement
               options={{
                 disableLink: true,
-                hidePostalCode: true
+                hidePostalCode: true,
+                iconStyle: 'solid'
+              }}
+              onChange={(event) => {
+                setFormIsValid(event.complete)
               }}
             />
           </div>
@@ -115,8 +140,12 @@ export const PlanPaymentModal = ({
                 Cancelar
               </Button>
             </DialogClose>
-            <Button type="submit" isLoading={isPending}>
-              Confirmar
+            <Button
+              type="submit"
+              isLoading={isPending}
+              disabled={!formIsValid || isPending}
+            >
+              Pagar
             </Button>
           </DialogFooter>
         </form>

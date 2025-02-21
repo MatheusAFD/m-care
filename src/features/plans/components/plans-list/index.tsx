@@ -17,7 +17,11 @@ interface PlansListProps {
 import { usePaymentStatus } from '../../hooks'
 
 export const PlansList = ({ plans }: PlansListProps) => {
-  const [selectedPlanId, setSelectedPlanId] = useState('')
+  const [selectedPlan, setSelectedPlan] = useState({
+    id: '',
+    name: '',
+    price: '0'
+  })
 
   const { isOpen, onOpenChange, onClose } = useDisclosure()
 
@@ -38,18 +42,26 @@ export const PlansList = ({ plans }: PlansListProps) => {
           plan={plan}
           onSelectPlan={() => {
             onOpenChange()
-            setSelectedPlanId(plan.id)
+            setSelectedPlan({
+              id: plan.id,
+              price: plan.price,
+              name: plan.name
+            })
           }}
         />
       ))}
 
       <StripeProvider>
         <PlanPaymentModal
-          planId={selectedPlanId}
+          selectedPlan={selectedPlan}
           isOpen={isOpen}
           onOpenChange={onOpenChange}
           onClose={() => {
-            setSelectedPlanId('')
+            setSelectedPlan({
+              id: '',
+              price: '',
+              name: ''
+            })
             onClose()
           }}
         />
