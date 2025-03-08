@@ -66,6 +66,15 @@ export default {
           ring: 'hsl(var(--sidebar-ring))'
         }
       },
+      animation: {
+        fadeRender: 'fadeRender 0.3s ease-in-out'
+      },
+      keyframes: {
+        fadeRender: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' }
+        }
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',

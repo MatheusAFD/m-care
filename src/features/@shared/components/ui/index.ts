@@ -2,6 +2,8 @@ export type { ButtonProps } from './button'
 export { Button, buttonVariants } from './button'
 export { Toaster } from './sonner'
 
+export { Skeleton } from './skeleton'
+
 export { Avatar, AvatarFallback, AvatarImage } from './avatar'
 
 export {

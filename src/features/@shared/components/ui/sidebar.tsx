@@ -26,6 +26,7 @@ import {
   TooltipTrigger
 } from '@m-care/features/@shared/components/ui/tooltip'
 import { cn } from '../../lib'
+import { usePathname } from 'next/navigation'
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state'
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -533,6 +534,7 @@ const SidebarMenuButton = React.forwardRef<
   React.ComponentProps<'button'> & {
     asChild?: boolean
     isActive?: boolean
+    url?: string
     tooltip?: string | React.ComponentProps<typeof TooltipContent>
   } & VariantProps<typeof sidebarMenuButtonVariants>
 >(
@@ -542,6 +544,7 @@ const SidebarMenuButton = React.forwardRef<
       isActive = false,
       variant = 'default',
       size = 'default',
+      url,
       tooltip,
       className,
       ...props
@@ -551,12 +554,16 @@ const SidebarMenuButton = React.forwardRef<
     const Comp = asChild ? Slot : 'button'
     const { isMobile, state } = useSidebar()
 
+    const pathname = usePathname()
+
+    const isActiveRoute = pathname === url
+
     const button = (
       <Comp
         ref={ref}
         data-sidebar="menu-button"
         data-size={size}
-        data-active={isActive}
+        data-active={isActiveRoute || isActive}
         className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
         {...props}
       />
