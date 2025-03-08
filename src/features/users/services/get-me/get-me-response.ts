@@ -1,3 +1,5 @@
+import { RolesEnum } from '@m-care/features/@shared/enums'
+
 export interface GetMeResponse {
   id: string
   name: string
@@ -15,7 +17,7 @@ export interface GetMeResponse {
 }
 
 export interface Roles {
-  type: 'SUPER_ADMIN' | 'ADMIN' | 'USER'
+  type: RolesEnum
 }
 
 export interface Companies {
