@@ -34,7 +34,7 @@ export const httpClientFetch = async <
   baseURL = env.NEXT_PUBLIC_API_URL,
   ...config
 }: RequestConfig<TVariables>): Promise<ResponseConfig<TData, TError>> => {
-  const token = await getAuthToken()
+  const { token } = await getAuthToken()
 
   const response = await fetch(`${baseURL}${config.url}`, {
     method: config.method.toUpperCase(),
