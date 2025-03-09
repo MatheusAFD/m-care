@@ -14,7 +14,7 @@ import {
 } from '../'
 import { Suspense } from 'react'
 
-export async function CustomSidebar() {
+export function CustomSidebar() {
   return (
     <Sidebar>
       <SidebarContent>
