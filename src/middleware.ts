@@ -1,6 +1,7 @@
 import { MiddlewareConfig, NextRequest, NextResponse } from 'next/server'
 
 import { jwtDecode } from 'jwt-decode'
+import { refreshToken } from './features/sign-in/services'
 
 const publicRoutes = [
   { path: '/auth/sign-in', whenAuthenticated: 'redirect' },
@@ -9,11 +10,14 @@ const publicRoutes = [
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = '/auth/sign-in'
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
   const publicRoute = publicRoutes.find((route) => route.path === path)
 
-  const authToken = request.cookies.get('mcare-token')?.value
+  const token = request.cookies.get('mcare-token')?.value
+  const refreshTokenCookie = request.cookies.get('mcare-refresh-token')?.value
+
+  const authToken = token || refreshTokenCookie
 
   if (!authToken && publicRoute) {
     return NextResponse.next()
@@ -39,11 +43,42 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(redirectUrl)
   }
 
-  if (authToken && !publicRoute) {
-    const decodedToken = jwtDecode(authToken)
+  if (token && refreshTokenCookie && !publicRoute) {
+    const decodedToken = jwtDecode(token)
+    const decodedRefreshToken = jwtDecode(refreshTokenCookie)
     const currentDate = Math.floor(Date.now() / 1000)
 
-    if (decodedToken.exp && currentDate >= decodedToken.exp) {
+    const tokenHasExpired = decodedToken.exp && currentDate >= decodedToken.exp
+    const refreshTokenHasExpired =
+      decodedRefreshToken.exp && currentDate >= decodedRefreshToken.exp
+
+    if (tokenHasExpired) {
+      const [error, data] = await refreshToken()
+
+      if (error) {
+        const redirectUrl = request.nextUrl.clone()
+
+        redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE
+      }
+
+      const TWO_HOURS_IN_SECONDS = 7200
+
+      const response = NextResponse.next()
+      response.cookies.set('mcare-token', data.accessToken, {
+        httpOnly: true,
+        secure: true,
+        maxAge: TWO_HOURS_IN_SECONDS
+      })
+      response.cookies.set('mcare-refresh-token', data.refreshToken, {
+        httpOnly: true,
+        secure: true,
+        maxAge: TWO_HOURS_IN_SECONDS
+      })
+
+      return response
+    }
+
+    if (refreshTokenHasExpired) {
       const redirectUrl = request.nextUrl.clone()
 
       redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE
