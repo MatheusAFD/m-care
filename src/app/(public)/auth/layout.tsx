@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function AuthLayout({ children }: PropsWithChildren) {
   return (
-    <>
+    <main className="w-full">
       <Image
         src="/register-background.svg"
         width={400}
@@ -18,6 +18,6 @@ export default function AuthLayout({ children }: PropsWithChildren) {
         priority
       />
       <main className="p-8 h-screen relative">{children}</main>
-    </>
+    </main>
   )
 }

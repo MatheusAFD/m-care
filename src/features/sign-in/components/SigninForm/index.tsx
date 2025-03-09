@@ -9,6 +9,7 @@ import { signIn } from '../../services'
 
 import { PasswordField, TextField } from '@m-care/features/@shared/components'
 import { Button } from '@m-care/features/@shared/components/ui'
+import { useRouter } from 'next/navigation'
 
 const signinSchema = z.object({
   email: z.string().email({ message: 'Email inválido' }),
@@ -18,6 +19,8 @@ const signinSchema = z.object({
 export type SigninFormData = z.infer<typeof signinSchema>
 
 export const SigninForm = () => {
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -44,6 +47,8 @@ export const SigninForm = () => {
       description: 'Você será redirecionado em alguns instantes.',
       position: 'top-center'
     })
+
+    router.push('/admin/home')
 
     return response
   }
