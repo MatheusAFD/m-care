@@ -4,7 +4,7 @@ import { SigninForm } from '@m-care/features/sign-in/components'
 
 export default function SigninPage() {
   return (
-    <section className="flex justify-center w-full mt-16">
+    <section className="flex justify-center mt-16">
       <CustomCard>
         <LineBadge />
         <h1 className="text-xl text-black">
