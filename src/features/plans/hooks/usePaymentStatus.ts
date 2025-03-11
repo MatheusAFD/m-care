@@ -44,7 +44,7 @@ export const usePaymentStatus = ({
           duration: Infinity,
           action: {
             label: 'Começar',
-            onClick: () => router.push('/home')
+            onClick: () => router.push('/auth/refresh')
           }
         })
 
