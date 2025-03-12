@@ -1,7 +1,10 @@
 import { MiddlewareConfig, NextRequest, NextResponse } from 'next/server'
-import { refreshToken } from './features/sign-in/services'
+
 import { jwtDecode } from 'jwt-decode'
-import { RolesEnum } from './features/@shared/enums'
+
+import { refreshToken } from '@m-care/features/sign-in/services'
+import { RolesEnum } from '@m-care/features/@shared/enums'
+import { privateRoutes, publicRoutes } from '@m-care/features/constants'
 
 interface DecodedToken {
   id: string
@@ -15,14 +18,11 @@ interface DecodedToken {
   iat: number
 }
 
-const publicRoutes = [
-  { path: '/auth/sign-in', whenAuthenticated: 'redirect' },
-  { path: '/auth/register', whenAuthenticated: 'redirect' }
-] as const
-
 const refreshTokenRoute = '/auth/refresh'
 const REDIRECT_WHEN_PLAN_IS_NOT_ACTIVE_ROUTE = '/plans'
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = '/auth/sign-in'
+const REDIRECT_WHEN_NO_PERMISSION = '/admin/home'
+
 const TWO_HOURS_IN_SECONDS = 7200
 
 const handleRedirect = (request: NextRequest, pathname: string) => {
@@ -83,6 +83,11 @@ export async function middleware(request: NextRequest) {
     const decodedRefreshToken = jwtDecode<DecodedToken>(refreshTokenCookie)
     const currentDate = Math.floor(Date.now() / 1000)
 
+    const route = privateRoutes.find((route) => route.url === path)
+
+    const userHasAccessToRoute =
+      route?.requiredRoles.includes(decodedToken.role.type) ?? false
+
     const tokenHasExpired = decodedToken.exp && currentDate >= decodedToken.exp
     const refreshTokenHasExpired =
       decodedRefreshToken.exp && currentDate >= decodedRefreshToken.exp
@@ -115,6 +120,10 @@ export async function middleware(request: NextRequest) {
 
     if (refreshTokenHasExpired) {
       return handleRedirect(request, REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
+    }
+
+    if (!userHasAccessToRoute) {
+      return handleRedirect(request, REDIRECT_WHEN_NO_PERMISSION)
     }
 
     return NextResponse.next()
