@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import { RegisterCompanyForm } from '@m-care/features/register/components'
+import { RegisterCompanyForm } from '@m-care/features/auth/register/components'
 import { CustomCard, LineBadge } from '@m-care/features/@shared/components'
 
 export const metadata: Metadata = {
