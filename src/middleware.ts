@@ -2,7 +2,7 @@ import { MiddlewareConfig, NextRequest, NextResponse } from 'next/server'
 
 import { jwtDecode } from 'jwt-decode'
 
-import { refreshToken } from '@m-care/features/sign-in/services'
+import { refreshToken } from '@m-care/features/auth/sign-in/services'
 import { RolesEnum } from '@m-care/features/@shared/enums'
 import { privateRoutes, publicRoutes } from '@m-care/features/constants'
 

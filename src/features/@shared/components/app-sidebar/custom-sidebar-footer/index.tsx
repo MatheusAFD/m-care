@@ -16,7 +16,7 @@ import { getMe } from '@m-care/features/users/services'
 import { getNameInitials } from '@m-care/features/@shared/utils'
 import { RolesEnum } from '@m-care/features/@shared/enums'
 import { Restricted } from '../../restricted'
-import { signOut } from '@m-care/features/auth/sign-out/actions/sign-out.action'
+import { signOut } from '@m-care/features/auth/sign-out/actions'
 
 export const CustomSidebarFooter = async () => {
   const [error, data] = await getMe()
