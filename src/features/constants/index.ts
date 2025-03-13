@@ -1,1 +1,2 @@
-export { sidebarMenuItems } from './sidebar-menu-items'
+export * from './sidebar-menu-items'
+export * from './routes'

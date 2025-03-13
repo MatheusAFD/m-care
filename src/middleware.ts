@@ -1,22 +1,43 @@
 import { MiddlewareConfig, NextRequest, NextResponse } from 'next/server'
 
 import { jwtDecode } from 'jwt-decode'
-import { refreshToken } from './features/sign-in/services'
 
-const publicRoutes = [
-  { path: '/auth/sign-in', whenAuthenticated: 'redirect' },
-  { path: '/auth/register', whenAuthenticated: 'redirect' }
-] as const
+import { refreshToken } from '@m-care/features/auth/sign-in/services'
+import { RolesEnum } from '@m-care/features/@shared/enums'
+import { privateRoutes, publicRoutes } from '@m-care/features/constants'
 
+interface DecodedToken {
+  id: string
+  role: {
+    id: string
+    type: RolesEnum
+  }
+  isActive: boolean
+  companyId: string
+  exp: number
+  iat: number
+}
+
+const refreshTokenRoute = '/auth/refresh'
+const REDIRECT_WHEN_PLAN_IS_NOT_ACTIVE_ROUTE = '/plans'
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = '/auth/sign-in'
+const REDIRECT_WHEN_NO_PERMISSION = '/admin/home'
+
+const TWO_HOURS_IN_SECONDS = 7200
+
+const handleRedirect = (request: NextRequest, pathname: string) => {
+  const redirectUrl = request.nextUrl.clone()
+  redirectUrl.pathname = pathname
+  return NextResponse.redirect(redirectUrl)
+}
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
   const publicRoute = publicRoutes.find((route) => route.path === path)
+  const isPlanRoute = path === REDIRECT_WHEN_PLAN_IS_NOT_ACTIVE_ROUTE
 
   const token = request.cookies.get('mcare-token')?.value
   const refreshTokenCookie = request.cookies.get('mcare-refresh-token')?.value
-
   const authToken = token || refreshTokenCookie
 
   if (!authToken && publicRoute) {
@@ -24,11 +45,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (!authToken && !publicRoute) {
-    const redirectUrl = request.nextUrl.clone()
-
-    redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE
-
-    return NextResponse.redirect(redirectUrl)
+    return handleRedirect(request, REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
   }
 
   if (
@@ -36,17 +53,40 @@ export async function middleware(request: NextRequest) {
     publicRoute &&
     publicRoute.whenAuthenticated === 'redirect'
   ) {
-    const redirectUrl = request.nextUrl.clone()
+    return handleRedirect(request, '/admin/home')
+  }
 
-    redirectUrl.pathname = '/home'
+  if (path === refreshTokenRoute) {
+    const [error, data] = await refreshToken()
 
-    return NextResponse.redirect(redirectUrl)
+    if (error) {
+      return handleRedirect(request, REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
+    }
+
+    const response = NextResponse.next()
+    response.cookies.set('mcare-token', data.accessToken, {
+      httpOnly: true,
+      secure: true,
+      maxAge: TWO_HOURS_IN_SECONDS
+    })
+    response.cookies.set('mcare-refresh-token', data.refreshToken, {
+      httpOnly: true,
+      secure: true,
+      maxAge: TWO_HOURS_IN_SECONDS
+    })
+
+    return response
   }
 
   if (token && refreshTokenCookie && !publicRoute) {
-    const decodedToken = jwtDecode(token)
-    const decodedRefreshToken = jwtDecode(refreshTokenCookie)
+    const decodedToken = jwtDecode<DecodedToken>(token)
+    const decodedRefreshToken = jwtDecode<DecodedToken>(refreshTokenCookie)
     const currentDate = Math.floor(Date.now() / 1000)
+
+    const route = privateRoutes.find((route) => route.url === path)
+
+    const userHasAccessToRoute =
+      route?.requiredRoles.includes(decodedToken.role.type) ?? false
 
     const tokenHasExpired = decodedToken.exp && currentDate >= decodedToken.exp
     const refreshTokenHasExpired =
@@ -56,12 +96,8 @@ export async function middleware(request: NextRequest) {
       const [error, data] = await refreshToken()
 
       if (error) {
-        const redirectUrl = request.nextUrl.clone()
-
-        redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE
+        return handleRedirect(request, REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
       }
-
-      const TWO_HOURS_IN_SECONDS = 7200
 
       const response = NextResponse.next()
       response.cookies.set('mcare-token', data.accessToken, {
@@ -78,12 +114,16 @@ export async function middleware(request: NextRequest) {
       return response
     }
 
+    if (!decodedToken.isActive && !isPlanRoute) {
+      return handleRedirect(request, REDIRECT_WHEN_PLAN_IS_NOT_ACTIVE_ROUTE)
+    }
+
     if (refreshTokenHasExpired) {
-      const redirectUrl = request.nextUrl.clone()
+      return handleRedirect(request, REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
+    }
 
-      redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE
-
-      return NextResponse.redirect(redirectUrl)
+    if (!userHasAccessToRoute) {
+      return handleRedirect(request, REDIRECT_WHEN_NO_PERMISSION)
     }
 
     return NextResponse.next()
