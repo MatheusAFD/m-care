@@ -16,6 +16,7 @@ import { getMe } from '@m-care/features/users/services'
 import { getNameInitials } from '@m-care/features/@shared/utils'
 import { RolesEnum } from '@m-care/features/@shared/enums'
 import { Restricted } from '../../restricted'
+import { signOut } from '@m-care/features/auth/sign-out/actions/sign-out.action'
 
 export const CustomSidebarFooter = async () => {
   const [error, data] = await getMe()
@@ -79,10 +80,16 @@ export const CustomSidebarFooter = async () => {
               <span>Financeiro</span>
             </DropdownMenuItem>
           </Restricted>
-          <DropdownMenuItem className="cursor-pointer">
-            <LogOut />
-            <span>Sair</span>
-          </DropdownMenuItem>
+          <form action={signOut}>
+            <button className="w-full" type="submit">
+              <DropdownMenuItem className="cursor-pointer">
+                <>
+                  <LogOut />
+                  <span>Sair</span>
+                </>
+              </DropdownMenuItem>
+            </button>
+          </form>
         </DropdownMenuContent>
       </DropdownMenu>
     </SidebarFooter>
