@@ -40,7 +40,7 @@ export const TextField = ({
             <input
               ref={ref}
               name={name}
-              id={`${id}-${name}`}
+              id={`data-test-id-${name}`}
               type={type}
               className={twMerge(
                 'w-full h-12 max-h-12 px-3 py-[10px] rounded-md border border-grey',
