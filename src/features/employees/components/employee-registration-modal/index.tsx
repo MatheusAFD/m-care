@@ -1,16 +1,14 @@
 import { PropsWithChildren } from 'react'
 
 import {
-  Button,
   Dialog,
-  DialogClose,
-  DialogFooter,
   DialogHeader,
   DialogContent,
   DialogTitle,
   DialogTrigger
 } from '@m-care/features/@shared/components/ui'
 import { CreateEmployeeForm } from '../create-employee-form'
+import { EmployeeFormStepsProvider } from '../../contexts'
 
 export const EmployeeRegistrationModal = ({ children }: PropsWithChildren) => {
   return (
@@ -23,18 +21,9 @@ export const EmployeeRegistrationModal = ({ children }: PropsWithChildren) => {
           </DialogTitle>
         </DialogHeader>
 
-        <CreateEmployeeForm />
-
-        <DialogFooter className="mt-8">
-          <DialogClose asChild>
-            <Button variant="outline" size="lg">
-              Cancelar
-            </Button>
-          </DialogClose>
-          <Button type="submit" size="lg">
-            Criar colaborador
-          </Button>
-        </DialogFooter>
+        <EmployeeFormStepsProvider>
+          <CreateEmployeeForm />
+        </EmployeeFormStepsProvider>
       </DialogContent>
     </Dialog>
   )
