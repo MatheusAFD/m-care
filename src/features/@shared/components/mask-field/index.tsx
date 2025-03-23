@@ -38,11 +38,9 @@ export const MaskField = ({
     [pattern]
   )
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value
-    masked.resolve(inputValue)
-
-    setMaskedValue(masked.value)
+  const handleMasking = (value: string) => {
+    masked.resolve(value)
+    return masked.value
   }
 
   const unmask = (value: string) => {
@@ -59,18 +57,20 @@ export const MaskField = ({
             {...field}
             type={type}
             label={label}
-            value={maskedValue}
+            value={maskedValue || handleMasking(field.value || '')}
             errorMessage={errorMessage}
             isRequired={isRequired}
             onChange={(e) => {
-              const unmaskedValue = unmask(e.target.value)
+              const inputValue = e.target.value
+              const unmaskedValue = unmask(inputValue)
 
               if (unmask(pattern).length < unmaskedValue.length) {
                 return
               }
 
-              handleChange(e)
-              field.onChange(e.target.value.replace(/\D/g, ''))
+              const newMaskedValue = handleMasking(inputValue)
+              setMaskedValue(newMaskedValue)
+              field.onChange(unmaskedValue)
             }}
             placeholder={placeholder}
             {...props}
