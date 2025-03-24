@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useId } from 'react'
+import { InputHTMLAttributes } from 'react'
 
 import { twMerge } from 'tailwind-merge'
 import { CircleX } from 'lucide-react'
@@ -24,14 +24,13 @@ export const TextField = ({
   errorMessage,
   className,
   ref,
+  id,
   isRequired = true,
   ...props
 }: TextFieldProps) => {
-  const id = useId()
-
   return (
-    <div className="w-full flex flex-col">
-      <label className="text-black text-xs mb-1" htmlFor={`${id}-${name}`}>
+    <div className="w-full flex flex-col font-medium">
+      <label className="text-black text-xs mb-1" htmlFor={`data-test-id-${id}`}>
         {label}: {isRequired && '*'}
       </label>
       <TooltipProvider>
@@ -40,7 +39,7 @@ export const TextField = ({
             <input
               ref={ref}
               name={name}
-              id={`data-test-id-${name}`}
+              id={`data-test-id-${id}`}
               type={type}
               className={twMerge(
                 'w-full h-12 max-h-12 px-3 py-[10px] rounded-md border border-grey',
