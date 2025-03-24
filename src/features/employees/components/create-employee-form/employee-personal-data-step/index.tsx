@@ -17,13 +17,8 @@ export const EmployeePersonalDataStep = () => {
   const {
     control,
     register,
-    getValues,
     formState: { errors }
   } = useFormContext<EmployeeFormSchemaType>()
-
-  const currentValues = getValues()
-
-  console.log(currentValues)
 
   const handleNextStep = () => {
     updateFormStep(EmployeeFormStepEnum.Address)
@@ -31,12 +26,13 @@ export const EmployeePersonalDataStep = () => {
 
   return (
     <>
-      <div className="w-full grid gap-4 grid-cols-2">
+      <div className="w-full grid gap-4 grid-cols-2 animate-fadeRender">
         <div className="col-span-2">
           <TextField
             {...register('name')}
             id="name"
             label="Nome completo"
+            placeholder="Ex: João da Silva"
             className="col-span-2"
             errorMessage={errors.name?.message}
           />
@@ -47,12 +43,14 @@ export const EmployeePersonalDataStep = () => {
           id="email"
           label="E-mail"
           errorMessage={errors.email?.message}
+          placeholder="Ex: joao@email.com"
         />
 
         <PasswordField
           {...register('password')}
           id="password"
           label="Senha"
+          placeholder="Senha"
           errorMessage={errors.password?.message}
         />
 
@@ -60,10 +58,10 @@ export const EmployeePersonalDataStep = () => {
           label="Telefone"
           control={control}
           name="phone"
+          placeholder="Ex: (00) 0 0000-0000"
           pattern="(00) 0 0000-0000"
           inputMode="numeric"
           errorMessage={errors.phone?.message}
-          defaultValue={currentValues.phone}
         />
 
         <SwitchField
@@ -75,7 +73,7 @@ export const EmployeePersonalDataStep = () => {
         <SwitchField {...register('status')} id="status" label="Status" />
       </div>
 
-      <footer className="w-full flex gap-4 justify-end mt-8">
+      <footer className="w-full flex gap-3 justify-end mt-8">
         <DialogClose asChild>
           <Button variant="outline" size="lg">
             Cancelar

@@ -17,21 +17,48 @@ export const EmployeeAddressStep = () => {
 
   return (
     <>
-      <div className="w-full grid gap-4 grid-cols-2">
+      <div className="w-full grid gap-4 grid-cols-2 animate-fadeRender">
         <MaskField
           control={control}
+          id="zipCode"
           name="zipCode"
-          label="CEP"
           pattern="ddddd-ddd"
+          label="CEP"
+          placeholder="Ex: 12345-678"
         />
-        <TextField {...register('address')} label="Endereço" />
-        <TextField {...register('number')} label="Número" />
-        <TextField {...register('neighborhood')} label="Bairro" />
-        <TextField {...register('city')} label="Cidade" />
-        <TextField {...register('state')} label="Estado" />
+        <TextField
+          {...register('address')}
+          id="address"
+          label="Endereço"
+          placeholder="Ex: Rua das Flores"
+        />
+        <TextField
+          {...register('number')}
+          id="number"
+          label="Número"
+          placeholder="Ex: 123"
+        />
+        <TextField
+          {...register('neighborhood')}
+          id="neighborhood"
+          label="Bairro"
+          placeholder="Ex: Centro"
+        />
+        <TextField
+          {...register('city')}
+          id="city"
+          label="Cidade"
+          placeholder="Ex: São Paulo"
+        />
+        <TextField
+          {...register('state')}
+          id="state"
+          label="Estado"
+          placeholder="Ex: SP"
+        />
       </div>
 
-      <footer className="w-full flex gap-4 justify-end mt-8">
+      <footer className="w-full flex gap-3 justify-end mt-8 place-self-end">
         <Button
           type="button"
           variant="outline"
