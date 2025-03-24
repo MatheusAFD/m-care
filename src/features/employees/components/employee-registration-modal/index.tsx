@@ -14,7 +14,7 @@ export const EmployeeRegistrationModal = ({ children }: PropsWithChildren) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className="min-h-[28rem]">
         <DialogHeader className="mb-4">
           <DialogTitle asChild>
             <h1 className="text-lg font-medium">Criação de colaborador</h1>

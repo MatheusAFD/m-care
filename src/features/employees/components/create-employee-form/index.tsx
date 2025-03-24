@@ -25,7 +25,7 @@ export const CreateEmployeeForm = () => {
   const CurrentStepComponent = componentbyStep[formStep]
 
   return (
-    <form>
+    <form className="flex flex-col justify-between">
       <FormProvider {...formMethods}>
         <CurrentStepComponent />
       </FormProvider>
