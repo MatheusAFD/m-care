@@ -12,17 +12,17 @@ export const CreateEmployeeForm = () => {
   const { formStep } = useEmployeeForm()
 
   const formMethods = useForm<EmployeeFormSchemaType>({
-    mode: 'onSubmit',
+    mode: 'onTouched',
     reValidateMode: 'onChange',
     resolver: zodResolver(EmployeeFormSchema)
   })
 
-  const componentbyStep = {
+  const componentsbyStep = {
     [EmployeeFormStepEnum.PersonalData]: EmployeePersonalDataStep,
     [EmployeeFormStepEnum.Address]: EmployeeAddressStep
   }
 
-  const CurrentStepComponent = componentbyStep[formStep]
+  const CurrentStepComponent = componentsbyStep[formStep]
 
   return (
     <form className="flex flex-col justify-between">
