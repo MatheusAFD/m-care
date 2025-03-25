@@ -4,27 +4,31 @@ import {
   Dialog,
   DialogHeader,
   DialogContent,
-  DialogTitle,
-  DialogTrigger
+  DialogTrigger,
+  DialogTitle
 } from '@m-care/features/@shared/components/ui'
 import { CreateEmployeeForm } from '../create-employee-form'
 import { EmployeeFormStepsProvider } from '../../contexts'
+
+import { FormProgressSteps } from '../form-progress-steps'
 
 export const EmployeeRegistrationModal = ({ children }: PropsWithChildren) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="min-h-[28rem]">
-        <DialogHeader className="mb-4">
-          <DialogTitle asChild>
-            <h1 className="text-lg font-medium">Criação de colaborador</h1>
-          </DialogTitle>
-        </DialogHeader>
+      <EmployeeFormStepsProvider>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle asChild>
+              <h1 className="text-lg font-medium">Criação de colaborador</h1>
+            </DialogTitle>
 
-        <EmployeeFormStepsProvider>
+            <FormProgressSteps />
+          </DialogHeader>
+
           <CreateEmployeeForm />
-        </EmployeeFormStepsProvider>
-      </DialogContent>
+        </DialogContent>
+      </EmployeeFormStepsProvider>
     </Dialog>
   )
 }
