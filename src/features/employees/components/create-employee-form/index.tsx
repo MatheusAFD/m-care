@@ -15,7 +15,21 @@ export const CreateEmployeeForm = () => {
   const formMethods = useForm<EmployeeFormSchemaType>({
     mode: 'onTouched',
     reValidateMode: 'onChange',
-    resolver: zodResolver(EmployeeFormSchema)
+    resolver: zodResolver(EmployeeFormSchema),
+    defaultValues: {
+      name: '',
+      phone: '',
+      email: '',
+      password: '',
+      address: '',
+      city: '',
+      state: '',
+      number: '',
+      neighborhood: '',
+      zipCode: '',
+      status: false,
+      isWhatsapp: false
+    }
   })
 
   const componentsbyStep = {
