@@ -3,13 +3,6 @@ import { InputHTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { CircleX } from 'lucide-react'
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger
-} from '../ui/tooltip'
-
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
   errorMessage?: string
