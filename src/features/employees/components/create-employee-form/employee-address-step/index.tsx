@@ -1,3 +1,6 @@
+import { useState } from 'react'
+
+import { toast } from 'sonner'
 import { useFormContext } from 'react-hook-form'
 
 import { MaskField, TextField } from '@m-care/features/@shared/components'
@@ -5,26 +8,87 @@ import { EmployeeFormSchemaType } from '@m-care/features/employees/types'
 import { Button } from '@m-care/features/@shared/components/ui'
 import { useEmployeeForm } from '@m-care/features/employees/hooks'
 import { EmployeeFormStepEnum } from '@m-care/features/employees/enums'
+import { getAddressByCep } from '@m-care/features/@shared/services'
+import { createEmployee } from '@m-care/features/employees/services'
+
+import { useDisclosure } from '@m-care/features/@shared/hooks'
 
 export const EmployeeAddressStep = () => {
+  const [addressFetchIsCompleted, setAddressFetchIsCompleted] = useState(true)
+  const [isFetchingAddress, setIsFetchingAddress] = useState(false)
+
+  const { dismissDialog } = useDisclosure()
+
   const { updateFormStep } = useEmployeeForm()
 
-  const { register, control } = useFormContext<EmployeeFormSchemaType>()
+  const {
+    register,
+    control,
+    resetField,
+    getFieldState,
+    watch,
+    setFocus,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid, isSubmitting }
+  } = useFormContext<EmployeeFormSchemaType>()
+
+  const cepIsValid =
+    !getFieldState('zipcode').invalid && Boolean(watch('zipcode').length)
 
   const handleGoBack = () => {
     updateFormStep(EmployeeFormStepEnum.PersonalData)
   }
 
+  const onSubmit = async (data: EmployeeFormSchemaType) => {
+    const [error, response] = await createEmployee(data)
+
+    if (error) {
+      toast.error('Erro!', {
+        description: 'Erro ao criar colaborador.'
+      })
+
+      return
+    }
+
+    toast.success('Sucesso!', {
+      description: 'Colaborador criado com sucesso.'
+    })
+
+    reset()
+    dismissDialog()
+
+    return response
+  }
+
+  const disableLocation = addressFetchIsCompleted
+
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="w-full grid gap-4 grid-cols-2 animate-fadeRender">
         <MaskField
           control={control}
-          id="zipCode"
-          name="zipCode"
-          pattern="ddddd-ddd"
+          id="zipcode"
+          name="zipcode"
+          pattern="00000-000"
           label="CEP"
           placeholder="Ex: 12345-678"
+          isValid={cepIsValid}
+          errorMessage={errors.zipcode?.message}
+          onValidate={async (value) => {
+            setIsFetchingAddress(true)
+
+            const [error, response] = await getAddressByCep(value)
+
+            if (error) {
+              setAddressFetchIsCompleted(false)
+              setIsFetchingAddress(false)
+
+              return
+            }
+
+            setAddressFetchIsCompleted(true)
+
             resetField('address', { defaultValue: response?.address })
             resetField('city', { defaultValue: response?.city })
             resetField('state', { defaultValue: response?.state })
@@ -40,30 +104,37 @@ export const EmployeeAddressStep = () => {
           id="address"
           label="Endereço"
           placeholder="Ex: Rua das Flores"
+          errorMessage={errors.address?.message}
         />
         <TextField
           {...register('number')}
           id="number"
           label="Número"
           placeholder="Ex: 123"
+          errorMessage={errors.number?.message}
         />
         <TextField
           {...register('neighborhood')}
           id="neighborhood"
           label="Bairro"
           placeholder="Ex: Centro"
+          errorMessage={errors.neighborhood?.message}
         />
         <TextField
           {...register('city')}
           id="city"
           label="Cidade"
           placeholder="Ex: São Paulo"
+          disabled={disableLocation}
+          errorMessage={errors.city?.message}
         />
         <TextField
           {...register('state')}
           id="state"
           label="Estado"
           placeholder="Ex: SP"
+          disabled={disableLocation}
+          errorMessage={errors.state?.message}
         />
       </div>
 
@@ -77,10 +148,14 @@ export const EmployeeAddressStep = () => {
           Voltar
         </Button>
 
-        <Button size="lg" type="submit">
+        <Button
+          size="lg"
+          type="submit"
+          disabled={!isValid || isSubmitting || isFetchingAddress}
+        >
           Criar colaborador
         </Button>
       </footer>
-    </>
+    </form>
   )
 }
