@@ -17,15 +17,27 @@ export const EmployeePersonalDataStep = () => {
   const {
     control,
     register,
+    watch,
     formState: { errors }
   } = useFormContext<EmployeeFormSchemaType>()
+
+  const currentValues = watch()
+
+  const stepValidity = {
+    name: !errors.name && !!currentValues.name,
+    email: !errors.email && !!currentValues.email,
+    password: !errors.password && !!currentValues.password,
+    phone: !errors.phone && !!currentValues.phone
+  }
+
+  const allFieldsValid = Object.values(stepValidity).every((valid) => valid)
 
   const handleNextStep = () => {
     updateFormStep(EmployeeFormStepEnum.Address)
   }
 
   return (
-    <>
+    <form>
       <div className="w-full grid gap-4 grid-cols-1 md:grid-cols-2 animate-fadeRender">
         <div className="md:col-span-2">
           <TextField
@@ -79,10 +91,11 @@ export const EmployeePersonalDataStep = () => {
             Cancelar
           </Button>
         </DialogClose>
-        <Button size="lg" onClick={handleNextStep}>
+
+        <Button size="lg" onClick={handleNextStep} disabled={!allFieldsValid}>
           Avançar
         </Button>
       </footer>
-    </>
+    </form>
   )
 }
