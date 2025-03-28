@@ -12,7 +12,7 @@ export default {
         'green-dark': '#285430',
         'green-principal': '#5F8D4E',
         'green-lite': '#F4FFF3',
-        black: '#181C32',
+        black: '#2A2E30',
         grey: '#C9C9C9',
         'grey-lite': '#FAFAFA',
         background: 'hsl(var(--background))',
