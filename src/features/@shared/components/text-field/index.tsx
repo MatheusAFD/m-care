@@ -33,8 +33,9 @@ export const TextField = ({
         id={`data-test-id-${id}`}
         type={type}
         className={twMerge(
-          'w-full h-12 max-h-12 px-3 py-[10px] rounded-md border border-grey',
+          'w-full h-12 max-h-12 px-3 py-[10px] rounded-md border border-grey text-sm',
           'placeholder:text-xs placeholder:text-grey',
+          'disabled:opacity-70 disabled:cursor-not-allowed',
           errorMessage && 'border-red-400 placeholder:text-red-400',
           className
         )}
