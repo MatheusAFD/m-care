@@ -25,6 +25,15 @@ export const EmployeeAddressStep = () => {
           pattern="ddddd-ddd"
           label="CEP"
           placeholder="Ex: 12345-678"
+            resetField('address', { defaultValue: response?.address })
+            resetField('city', { defaultValue: response?.city })
+            resetField('state', { defaultValue: response?.state })
+            resetField('neighborhood', { defaultValue: response?.neighborhood })
+
+            setFocus('number')
+
+            setIsFetchingAddress(false)
+          }}
         />
         <TextField
           {...register('address')}
