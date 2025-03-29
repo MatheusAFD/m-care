@@ -13,8 +13,10 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   pattern: string
   errorMessage?: string
   isRequired?: boolean
+  isValid?: boolean
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: FieldValues | any
+  onValidate?: (value: string) => void | Promise<void>
 }
 
 export const MaskField = ({
@@ -26,6 +28,7 @@ export const MaskField = ({
   errorMessage,
   isRequired = true,
   control,
+  onValidate,
   ...props
 }: TextFieldProps) => {
   const [maskedValue, setMaskedValue] = useState('')
@@ -38,11 +41,9 @@ export const MaskField = ({
     [pattern]
   )
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value
-    masked.resolve(inputValue)
-
-    setMaskedValue(masked.value)
+  const handleMasking = (value: string) => {
+    masked.resolve(value)
+    return masked.value
   }
 
   const unmask = (value: string) => {
@@ -59,18 +60,26 @@ export const MaskField = ({
             {...field}
             type={type}
             label={label}
-            value={maskedValue}
+            value={maskedValue || handleMasking(field.value || '')}
             errorMessage={errorMessage}
             isRequired={isRequired}
-            onChange={(e) => {
-              const unmaskedValue = unmask(e.target.value)
+            disabled={props.disabled}
+            onChange={async (e) => {
+              const inputValue = e.target.value
+              const unmaskedValue = unmask(inputValue)
 
               if (unmask(pattern).length < unmaskedValue.length) {
                 return
               }
 
-              handleChange(e)
-              field.onChange(e.target.value.replace(/\D/g, ''))
+              const newMaskedValue = handleMasking(inputValue)
+              setMaskedValue(newMaskedValue)
+
+              field.onChange(unmaskedValue)
+
+              if (unmask(pattern).length === unmaskedValue.length) {
+                await onValidate?.(unmaskedValue)
+              }
             }}
             placeholder={placeholder}
             {...props}

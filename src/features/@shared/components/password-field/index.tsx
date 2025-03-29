@@ -27,9 +27,13 @@ export const PasswordField = ({ ...props }: TextFieldProps) => {
         className="absolute right-2 top-[43px] -translate-y-1/2"
         onClick={handleVisible}
       >
-        {isVisible && <Eye className="text-green-principal" />}
+        {isVisible && (
+          <Eye className="text-green-principal animate-fadeRender" />
+        )}
 
-        {!isVisible && <EyeClosed className="text-green-principal" />}
+        {!isVisible && (
+          <EyeClosed className="text-green-principal animate-fadeRender" />
+        )}
       </Button>
     </div>
   )

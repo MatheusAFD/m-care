@@ -1,4 +1,5 @@
 export { TextField } from './text-field'
+export { SwitchField } from './switch-field'
 export { MaskField } from './mask-field'
 export { PasswordField } from './password-field'
 export { LineBadge } from './line-badge'
