@@ -14,12 +14,23 @@ export const EmployeePersonalDataStep = () => {
   const {
     control,
     register,
-    formState: { errors }
+    formState: { errors },
+    getFieldState
   } = useFormContext<EmployeeFormSchemaType>()
 
   const handleNextStep = async () => {
     updateFormStep(EmployeeFormStepEnum.Address)
   }
+
+  const fields = [
+    getFieldState('name'),
+    getFieldState('email'),
+    getFieldState('phone')
+  ] as const
+
+  const allFieldsIsValid = fields.every(
+    (field) => !field.invalid && field.isTouched
+  )
 
   return (
     <form>
@@ -61,7 +72,7 @@ export const EmployeePersonalDataStep = () => {
           </Button>
         </DialogClose>
 
-        <Button size="lg" onClick={handleNextStep}>
+        <Button size="lg" onClick={handleNextStep} disabled={!allFieldsIsValid}>
           Avançar
         </Button>
       </footer>
