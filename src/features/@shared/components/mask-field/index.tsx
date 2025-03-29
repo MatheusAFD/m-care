@@ -28,12 +28,10 @@ export const MaskField = ({
   errorMessage,
   isRequired = true,
   control,
-  isValid,
   onValidate,
   ...props
 }: TextFieldProps) => {
   const [maskedValue, setMaskedValue] = useState('')
-  const [isValidating, setIsValidating] = useState(false)
 
   const masked = useMemo(
     () =>
@@ -65,21 +63,8 @@ export const MaskField = ({
             value={maskedValue || handleMasking(field.value || '')}
             errorMessage={errorMessage}
             isRequired={isRequired}
-            disabled={isValidating || props.disabled}
-            onBlur={async (e) => {
-              setIsValidating(true)
-
-              field.onBlur()
-
-              const { value } = e.target
-
-              if (isValid) {
-                await onValidate?.(value)
-              }
-
-              setIsValidating(false)
-            }}
-            onChange={(e) => {
+            disabled={props.disabled}
+            onChange={async (e) => {
               const inputValue = e.target.value
               const unmaskedValue = unmask(inputValue)
 
@@ -91,6 +76,10 @@ export const MaskField = ({
               setMaskedValue(newMaskedValue)
 
               field.onChange(unmaskedValue)
+
+              if (unmask(pattern).length === unmaskedValue.length) {
+                await onValidate?.(unmaskedValue)
+              }
             }}
             placeholder={placeholder}
             {...props}
