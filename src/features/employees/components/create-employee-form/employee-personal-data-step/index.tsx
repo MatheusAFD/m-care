@@ -26,7 +26,7 @@ export const EmployeePersonalDataStep = () => {
     getFieldState('name'),
     getFieldState('email'),
     getFieldState('phone')
-  ] as const
+  ]
 
   const allFieldsIsValid = fields.every(
     (field) => !field.invalid && field.isTouched
