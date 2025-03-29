@@ -1,10 +1,10 @@
 import { httpClientFetch } from '@m-care/features/@shared/lib'
-import { EmployeeFormSchemaType } from '../../types'
+import { EmployeeFormData } from '../../types'
 import { ErrorResponse } from '@m-care/features/@shared/types'
 import { CreateEmployeeResponse } from './types'
 
 export const createEmployee = async (
-  data: EmployeeFormSchemaType
+  data: EmployeeFormData
 ): Promise<[ErrorResponse | null, CreateEmployeeResponse | null]> => {
   const [error, response] = await httpClientFetch<
     CreateEmployeeResponse,

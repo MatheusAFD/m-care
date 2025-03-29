@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 
 import { EmployeeFormStepEnum } from '../../enums'
 import { useEmployeeForm } from '../../hooks'
-import { EmployeeFormSchemaType, EmployeeFormSchema } from '../../types'
+import { EmployeeFormData, EmployeeFormSchema } from '../../types'
 import { EmployeePersonalDataStep } from './employee-personal-data-step'
 import { EmployeeAddressStep } from './employee-address-step'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -12,7 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 export const CreateEmployeeForm = () => {
   const { formStep } = useEmployeeForm()
 
-  const formMethods = useForm<EmployeeFormSchemaType>({
+  const formMethods = useForm<EmployeeFormData>({
     mode: 'onTouched',
     reValidateMode: 'onChange',
     resolver: zodResolver(EmployeeFormSchema),

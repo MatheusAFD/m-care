@@ -21,4 +21,4 @@ export const EmployeeFormSchema = z.object({
   zipcode: z.string().nonempty('O CEP é obrigatório').min(8, 'CEP inválido')
 })
 
-export type EmployeeFormSchemaType = z.infer<typeof EmployeeFormSchema>
+export type EmployeeFormData = z.infer<typeof EmployeeFormSchema>

@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 import { useFormContext } from 'react-hook-form'
 
 import { MaskField, TextField } from '@m-care/features/@shared/components'
-import { EmployeeFormSchemaType } from '@m-care/features/employees/types'
+import { EmployeeFormData } from '@m-care/features/employees/types'
 import { Button } from '@m-care/features/@shared/components/ui'
 import { useEmployeeForm } from '@m-care/features/employees/hooks'
 import { EmployeeFormStepEnum } from '@m-care/features/employees/enums'
@@ -30,13 +30,13 @@ export const EmployeeAddressStep = () => {
     handleSubmit,
     reset,
     formState: { errors, isValid, isSubmitting }
-  } = useFormContext<EmployeeFormSchemaType>()
+  } = useFormContext<EmployeeFormData>()
 
   const handleGoBack = () => {
     updateFormStep(EmployeeFormStepEnum.PersonalData)
   }
 
-  const onSubmit = async (data: EmployeeFormSchemaType) => {
+  const onSubmit = async (data: EmployeeFormData) => {
     const [error, response] = await createEmployee(data)
 
     if (error) {
