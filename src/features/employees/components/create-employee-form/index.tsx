@@ -20,15 +20,12 @@ export const CreateEmployeeForm = () => {
       name: '',
       phone: '',
       email: '',
-      password: '',
       address: '',
       city: '',
       state: '',
       number: '',
       neighborhood: '',
-      zipcode: '',
-      status: false,
-      isWhatsapp: false
+      zipcode: ''
     }
   })
 

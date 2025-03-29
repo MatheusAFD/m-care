@@ -18,8 +18,7 @@ export const EmployeeFormSchema = z.object({
   state: z.string().nonempty('Estado é obrigatório'),
   number: z.string().nonempty('Número é obrigatório'),
   neighborhood: z.string().nonempty('Bairro é obrigatório'),
-  zipcode: z.string().nonempty('O CEP é obrigatório').min(8, 'CEP inválido'),
-  isWhatsapp: z.boolean()
+  zipcode: z.string().nonempty('O CEP é obrigatório').min(8, 'CEP inválido')
 })
 
 export type EmployeeFormSchemaType = z.infer<typeof EmployeeFormSchema>
