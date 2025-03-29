@@ -13,7 +13,7 @@ export const EmployeePersonalDataStep = () => {
   const { updateFormStep } = useEmployeeForm()
 
   const { isValid } = usePartialFormValidation<EmployeeFormData>({
-    names: ['name', 'email', 'phone']
+    fields: ['name', 'email', 'phone']
   })
 
   const {
