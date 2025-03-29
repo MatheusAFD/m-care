@@ -34,7 +34,7 @@ export const EmployeePersonalDataStep = () => {
 
   return (
     <form>
-      <div className="w-full grid grid-cols-1 gap-4 items-end md:grid-cols-2 animate-fadeRender">
+      <div className="w-full grid grid-cols-1 gap-4 md:grid-cols-2 animate-fadeRender">
         <div className="md:col-span-2">
           <TextField
             {...register('name')}
