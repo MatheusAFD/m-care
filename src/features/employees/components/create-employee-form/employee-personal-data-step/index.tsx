@@ -18,7 +18,7 @@ export const EmployeePersonalDataStep = () => {
     getFieldState
   } = useFormContext<EmployeeFormSchemaType>()
 
-  const handleNextStep = async () => {
+  const handleNextStep = () => {
     updateFormStep(EmployeeFormStepEnum.Address)
   }
 
