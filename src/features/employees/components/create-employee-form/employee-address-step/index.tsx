@@ -99,11 +99,14 @@ export const EmployeeAddressStep = () => {
           placeholder="Ex: Rua das Flores"
           errorMessage={errors.address?.message}
         />
-        <TextField
-          {...register('number')}
+        <MaskField
+          control={control}
+          name="number"
+          pattern="0000000000"
           id="number"
           label="Número"
           placeholder="Ex: 123"
+          inputMode="numeric"
           errorMessage={errors.number?.message}
         />
         <TextField
