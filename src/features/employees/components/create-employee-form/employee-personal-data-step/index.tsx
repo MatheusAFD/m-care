@@ -4,33 +4,27 @@ import { MaskField, TextField } from '@m-care/features/@shared/components'
 import { Button, DialogClose } from '@m-care/features/@shared/components/ui'
 
 import { useEmployeeForm } from '@m-care/features/employees/hooks'
+import { usePartialFormValidation } from '@m-care/features/@shared/hooks'
 
 import { EmployeeFormStepEnum } from '@m-care/features/employees/enums'
-import { EmployeeFormSchemaType } from '@m-care/features/employees/types'
+import { EmployeeFormData } from '@m-care/features/employees/types'
 
 export const EmployeePersonalDataStep = () => {
   const { updateFormStep } = useEmployeeForm()
 
+  const { isValid } = usePartialFormValidation<EmployeeFormData>({
+    names: ['name', 'email', 'phone']
+  })
+
   const {
     control,
     register,
-    formState: { errors },
-    getFieldState
-  } = useFormContext<EmployeeFormSchemaType>()
+    formState: { errors }
+  } = useFormContext<EmployeeFormData>()
 
   const handleNextStep = () => {
     updateFormStep(EmployeeFormStepEnum.Address)
   }
-
-  const fields = [
-    getFieldState('name'),
-    getFieldState('email'),
-    getFieldState('phone')
-  ]
-
-  const allFieldsIsValid = fields.every(
-    (field) => !field.invalid && field.isTouched
-  )
 
   return (
     <form>
@@ -72,7 +66,7 @@ export const EmployeePersonalDataStep = () => {
           </Button>
         </DialogClose>
 
-        <Button size="lg" onClick={handleNextStep} disabled={!allFieldsIsValid}>
+        <Button size="lg" onClick={handleNextStep} disabled={!isValid}>
           Avançar
         </Button>
       </footer>
