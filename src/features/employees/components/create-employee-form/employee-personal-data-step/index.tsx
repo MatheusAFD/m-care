@@ -1,15 +1,12 @@
-import {
-  MaskField,
-  PasswordField,
-  SwitchField,
-  TextField
-} from '@m-care/features/@shared/components'
-import { Button } from '@m-care/features/@shared/components/ui'
-import { EmployeeFormStepEnum } from '@m-care/features/employees/enums'
-import { useEmployeeForm } from '@m-care/features/employees/hooks'
-import { EmployeeFormSchemaType } from '@m-care/features/employees/types'
-import { DialogClose } from '@radix-ui/react-dialog'
 import { useFormContext } from 'react-hook-form'
+
+import { MaskField, TextField } from '@m-care/features/@shared/components'
+import { Button, DialogClose } from '@m-care/features/@shared/components/ui'
+
+import { useEmployeeForm } from '@m-care/features/employees/hooks'
+
+import { EmployeeFormStepEnum } from '@m-care/features/employees/enums'
+import { EmployeeFormSchemaType } from '@m-care/features/employees/types'
 
 export const EmployeePersonalDataStep = () => {
   const { updateFormStep } = useEmployeeForm()
@@ -17,28 +14,16 @@ export const EmployeePersonalDataStep = () => {
   const {
     control,
     register,
-    watch,
     formState: { errors }
   } = useFormContext<EmployeeFormSchemaType>()
 
-  const currentValues = watch()
-
-  const stepValidity = {
-    name: !errors.name && !!currentValues.name,
-    email: !errors.email && !!currentValues.email,
-    password: !errors.password && !!currentValues.password,
-    phone: !errors.phone && !!currentValues.phone
-  }
-
-  const allFieldsValid = Object.values(stepValidity).every((valid) => valid)
-
-  const handleNextStep = () => {
+  const handleNextStep = async () => {
     updateFormStep(EmployeeFormStepEnum.Address)
   }
 
   return (
     <form>
-      <div className="w-full grid gap-4 grid-cols-1 md:grid-cols-2 animate-fadeRender">
+      <div className="w-full grid grid-cols-1 gap-4 items-end md:grid-cols-2 animate-fadeRender">
         <div className="md:col-span-2">
           <TextField
             {...register('name')}
@@ -58,14 +43,6 @@ export const EmployeePersonalDataStep = () => {
           placeholder="Ex: joao@email.com"
         />
 
-        <PasswordField
-          {...register('password')}
-          id="password"
-          label="Senha"
-          placeholder="Senha"
-          errorMessage={errors.password?.message}
-        />
-
         <MaskField
           label="Telefone"
           control={control}
@@ -75,14 +52,6 @@ export const EmployeePersonalDataStep = () => {
           inputMode="numeric"
           errorMessage={errors.phone?.message}
         />
-
-        <SwitchField
-          {...register('isWhatsapp')}
-          id="isWhatsapp"
-          label="É Whatsapp"
-        />
-
-        <SwitchField {...register('status')} id="status" label="Status" />
       </div>
 
       <footer className="w-full flex gap-3 justify-end mt-8">
@@ -92,7 +61,7 @@ export const EmployeePersonalDataStep = () => {
           </Button>
         </DialogClose>
 
-        <Button size="lg" onClick={handleNextStep} disabled={!allFieldsValid}>
+        <Button size="lg" onClick={handleNextStep}>
           Avançar
         </Button>
       </footer>

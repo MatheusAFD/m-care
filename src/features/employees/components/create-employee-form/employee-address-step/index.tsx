@@ -25,16 +25,11 @@ export const EmployeeAddressStep = () => {
     register,
     control,
     resetField,
-    getFieldState,
-    watch,
     setFocus,
     handleSubmit,
     reset,
     formState: { errors, isValid, isSubmitting }
   } = useFormContext<EmployeeFormSchemaType>()
-
-  const cepIsValid =
-    !getFieldState('zipcode').invalid && Boolean(watch('zipcode').length)
 
   const handleGoBack = () => {
     updateFormStep(EmployeeFormStepEnum.PersonalData)
@@ -73,7 +68,6 @@ export const EmployeeAddressStep = () => {
           pattern="00000-000"
           label="CEP"
           placeholder="Ex: 12345-678"
-          isValid={cepIsValid}
           errorMessage={errors.zipcode?.message}
           onValidate={async (value) => {
             setIsFetchingAddress(true)
