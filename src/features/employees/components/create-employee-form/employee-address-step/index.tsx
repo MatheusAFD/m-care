@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 
 import { toast } from 'sonner'
 import { useFormContext } from 'react-hook-form'
@@ -15,7 +15,8 @@ import { useDisclosure } from '@m-care/features/@shared/hooks'
 
 export const EmployeeAddressStep = () => {
   const [addressFetchIsCompleted, setAddressFetchIsCompleted] = useState(true)
-  const [isFetchingAddress, setIsFetchingAddress] = useState(false)
+
+  const [isFetchingAddress, startTransition] = useTransition()
 
   const { dismissDialog } = useDisclosure()
 
@@ -69,28 +70,26 @@ export const EmployeeAddressStep = () => {
           label="CEP"
           placeholder="Ex: 12345-678"
           errorMessage={errors.zipcode?.message}
-          onValidate={async (value) => {
-            setIsFetchingAddress(true)
+          onValidate={(value) => {
+            startTransition(async () => {
+              const [error, response] = await getAddressByCep(value)
 
-            const [error, response] = await getAddressByCep(value)
+              if (error) {
+                setAddressFetchIsCompleted(false)
+                return
+              }
 
-            if (error) {
-              setAddressFetchIsCompleted(false)
-              setIsFetchingAddress(false)
+              setAddressFetchIsCompleted(true)
 
-              return
-            }
+              resetField('address', { defaultValue: response?.address })
+              resetField('city', { defaultValue: response?.city })
+              resetField('state', { defaultValue: response?.state })
+              resetField('neighborhood', {
+                defaultValue: response?.neighborhood
+              })
 
-            setAddressFetchIsCompleted(true)
-
-            resetField('address', { defaultValue: response?.address })
-            resetField('city', { defaultValue: response?.city })
-            resetField('state', { defaultValue: response?.state })
-            resetField('neighborhood', { defaultValue: response?.neighborhood })
-
-            setFocus('number')
-
-            setIsFetchingAddress(false)
+              setFocus('number')
+            })
           }}
         />
         <TextField
