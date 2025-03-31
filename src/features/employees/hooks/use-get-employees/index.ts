@@ -24,7 +24,6 @@ export const useGetEmployees = ({
       return response
     },
     initialData,
-    staleTime: 0,
     initialDataUpdatedAt: Date.now()
   })
 
