@@ -6,4 +6,5 @@ type CustomCardProps = React.ComponentProps<typeof CustomCard>
 export interface EmployeeCardProps extends CustomCardProps {
   name: string
   color: string
+  onEdit: VoidFunction
 }

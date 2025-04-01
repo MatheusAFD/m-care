@@ -1,15 +1,15 @@
 import { httpClientFetch } from '@m-care/features/@shared/lib'
-import { EmployeeResponse } from '../../types'
+import { EmployeesResponse } from '../../types'
 import { ErrorResponse } from '@m-care/features/@shared/types'
 import { GetEmployeeFilters } from './types'
 
 export const getEmployees = async (
   filters: GetEmployeeFilters
-): Promise<[ErrorResponse | null, EmployeeResponse | null]> => {
+): Promise<[ErrorResponse | null, EmployeesResponse | null]> => {
   const { page, limit, search } = filters
 
   const [error, response] = await httpClientFetch<
-    EmployeeResponse,
+    EmployeesResponse,
     ErrorResponse
   >({
     url: `/employees?page=${page}&limit=${limit}`,
