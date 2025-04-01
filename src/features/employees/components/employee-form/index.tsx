@@ -1,22 +1,26 @@
 'use client'
 
 import { FormProvider, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import { EmployeeFormStepEnum } from '../../enums'
 import { useEmployeeForm } from '../../hooks'
 import { EmployeeFormData, EmployeeFormSchema } from '../../types'
 import { EmployeePersonalDataStep } from './employee-personal-data-step'
 import { EmployeeAddressStep } from './employee-address-step'
-import { zodResolver } from '@hookform/resolvers/zod'
 
-export const CreateEmployeeForm = () => {
-  const { formStep } = useEmployeeForm()
+interface EmployeeFormProps {
+  saveText?: string
+  defaultValues?: Partial<EmployeeFormData>
+  onSubmit: (data: EmployeeFormData) => VoidFunction | Promise<void>
+}
 
-  const formMethods = useForm<EmployeeFormData>({
-    mode: 'onTouched',
-    reValidateMode: 'onChange',
-    resolver: zodResolver(EmployeeFormSchema),
-    defaultValues: {
+export const EmployeeForm = (props: EmployeeFormProps) => {
+  const { saveText = 'Criar colaborador', onSubmit, defaultValues } = props
+
+  const defualtFormValues =
+    defaultValues ??
+    ({
       name: '',
       phone: '',
       email: '',
@@ -26,7 +30,15 @@ export const CreateEmployeeForm = () => {
       number: '',
       neighborhood: '',
       zipcode: ''
-    }
+    } as EmployeeFormData)
+
+  const { formStep } = useEmployeeForm()
+
+  const formMethods = useForm<EmployeeFormData>({
+    mode: 'onTouched',
+    reValidateMode: 'onChange',
+    resolver: zodResolver(EmployeeFormSchema),
+    defaultValues: defualtFormValues
   })
 
   const componentsbyStep = {
@@ -39,7 +51,7 @@ export const CreateEmployeeForm = () => {
   return (
     <section className="flex flex-col justify-between">
       <FormProvider {...formMethods}>
-        <CurrentStepComponent />
+        <CurrentStepComponent onSubmit={onSubmit} saveText={saveText} />
       </FormProvider>
     </section>
   )
