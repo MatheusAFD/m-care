@@ -11,14 +11,15 @@ import { EmployeeAddressStep } from './employee-address-step'
 
 interface EmployeeFormProps {
   saveText?: string
-  defaultValues?: Partial<EmployeeFormData>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  defaultValues?: Partial<EmployeeFormData> | any
   onSubmit: (data: EmployeeFormData) => VoidFunction | Promise<void>
 }
 
 export const EmployeeForm = (props: EmployeeFormProps) => {
   const { saveText = 'Criar colaborador', onSubmit, defaultValues } = props
 
-  const defualtFormValues =
+  const defaultFormValues =
     defaultValues ??
     ({
       name: '',
@@ -38,7 +39,7 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
     mode: 'onTouched',
     reValidateMode: 'onChange',
     resolver: zodResolver(EmployeeFormSchema),
-    defaultValues: defualtFormValues
+    defaultValues: defaultFormValues
   })
 
   const componentsbyStep = {
