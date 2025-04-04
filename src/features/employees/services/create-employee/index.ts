@@ -1,3 +1,6 @@
+'use server'
+import { revalidateTag } from 'next/cache'
+
 import { httpClientFetch } from '@m-care/features/@shared/lib'
 import { EmployeeFormData } from '../../types'
 import { ErrorResponse } from '@m-care/features/@shared/types'
@@ -18,6 +21,9 @@ export const createEmployee = async (
       status: 'ACTIVE'
     }
   })
+
+  revalidateTag('employees')
+  revalidateTag('employee')
 
   return [error, response]
 }
