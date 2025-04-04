@@ -3,10 +3,10 @@
 import React, { PropsWithChildren } from 'react'
 
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { SidebarProvider } from '../components/ui'
+import { QueryClientProvider } from '@tanstack/react-query'
 
-const queryClient = new QueryClient()
+import { SidebarProvider } from '../components/ui'
+import { queryClient } from '../lib'
 
 interface AppProvidersProps {
   children: React.ReactNode
