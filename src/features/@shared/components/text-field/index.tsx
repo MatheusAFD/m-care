@@ -1,14 +1,7 @@
-import { InputHTMLAttributes, useId } from 'react'
+import { InputHTMLAttributes } from 'react'
 
 import { twMerge } from 'tailwind-merge'
 import { CircleX } from 'lucide-react'
-
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger
-} from '../ui/tooltip'
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
@@ -24,47 +17,51 @@ export const TextField = ({
   errorMessage,
   className,
   ref,
+  id,
   isRequired = true,
   ...props
 }: TextFieldProps) => {
-  const id = useId()
+  const hasLabel = Boolean(label)
 
   return (
-    <div className="w-full flex flex-col">
-      <label className="text-black text-xs mb-1" htmlFor={`${id}-${name}`}>
-        {label}: {isRequired && '*'}
-      </label>
-      <TooltipProvider>
-        <Tooltip open={!!errorMessage}>
-          <TooltipTrigger asChild>
-            <input
-              ref={ref}
-              name={name}
-              id={`${id}-${name}`}
-              type={type}
-              className={twMerge(
-                'w-full h-12 max-h-12 px-3 py-[10px] rounded-md border border-grey',
-                'placeholder:text-xs placeholder:text-grey',
-                errorMessage && 'border-red-400 placeholder:text-red-400',
-                className
-              )}
-              {...props}
-            />
-          </TooltipTrigger>
-          <TooltipContent
-            className="shadow-sm bg-white border border-red-400 text-red-400"
-            side="bottom"
-            align="end"
-            sideOffset={-2}
-          >
-            <div className="flex gap-1 items-center">
-              <CircleX size={20} className="fill-red-500 text-white" />
+    <div className="w-full flex flex-col font-medium transition-all">
+      {hasLabel && (
+        <label
+          className="text-black text-xs mb-1"
+          htmlFor={`data-test-id-${id}`}
+        >
+          {label}: {isRequired && '*'}
+        </label>
+      )}
 
-              <p>{errorMessage}</p>
-            </div>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <input
+        ref={ref}
+        name={name}
+        id={`data-test-id-${id}`}
+        type={type}
+        className={twMerge(
+          'w-full h-12 max-h-12 px-3 py-[10px] rounded-md border border-grey text-sm',
+          'placeholder:text-xs placeholder:text-grey',
+          'disabled:opacity-70 disabled:cursor-not-allowed',
+          errorMessage && 'border-red-400 placeholder:text-red-400',
+          className
+        )}
+        {...props}
+      />
+
+      <div
+        className={twMerge(
+          'transition-all duration-300 ease-in-out overflow-hidden',
+          errorMessage ? 'max-h-10 mt-1' : 'max-h-0'
+        )}
+      >
+        {errorMessage && (
+          <div className="flex gap-1 items-center">
+            <CircleX size={20} className="fill-red-500 text-white" />
+            <p className="font-medium text-xs text-red-500">{errorMessage}</p>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

@@ -12,7 +12,7 @@ export default {
         'green-dark': '#285430',
         'green-principal': '#5F8D4E',
         'green-lite': '#F4FFF3',
-        black: '#181C32',
+        black: '#2A2E30',
         grey: '#C9C9C9',
         'grey-lite': '#FAFAFA',
         background: 'hsl(var(--background))',
@@ -67,12 +67,18 @@ export default {
         }
       },
       animation: {
-        fadeRender: 'fadeRender 0.3s ease-in-out'
+        fadeRender: 'fadeRender 0.3s ease-in-out',
+        'progress-pulse': 'progress-fill 1.5s infinite alternate ease-in-out'
       },
       keyframes: {
         fadeRender: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' }
+        },
+        'progress-fill': {
+          '0%': { backgroundSize: '0% 100%' },
+          '50%': { backgroundSize: '100% 100%' },
+          '100%': { backgroundSize: '0% 100%' }
         }
       },
       borderRadius: {
