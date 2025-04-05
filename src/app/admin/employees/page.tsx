@@ -26,7 +26,9 @@ export default function EmployeesPage() {
           </Button>
         </EmployeeRegistrationModal>
 
-        <SearchFilter />
+        <Suspense>
+          <SearchFilter />
+        </Suspense>
       </header>
 
       <Suspense fallback={<Loading />}>
