@@ -46,7 +46,7 @@ export const CustomSidebarFooter = async () => {
               <div className="flex flex-col">
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <p className="text-sm truncate max-w-[15ch]">
+                    <p className="text-sm truncate max-w-[15ch] font-medium">
                       {data?.name}
                     </p>
                   </TooltipTrigger>

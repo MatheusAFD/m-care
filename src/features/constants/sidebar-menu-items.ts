@@ -32,7 +32,7 @@ export const sidebarMenuItems = [
   },
   {
     title: 'Colaboradores',
-    url: '/admin/home',
+    url: '/admin/employees',
     icon: Users,
     as: '/admin/employees',
     requiredRoles: [RolesEnum.ADMIN]
