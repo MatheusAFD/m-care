@@ -1,18 +1,18 @@
 import { HTMLAttributes, PropsWithChildren } from 'react'
-import { twMerge } from 'tailwind-merge'
+
+import { cn } from '../../lib'
 
 export const CustomCard = ({
   children,
-  className,
   ...props
 }: PropsWithChildren<HTMLAttributes<HTMLDivElement>>) => {
   return (
     <div
-      className={twMerge(
-        'w-auto p-12 shadow-md rounded-lg bg-white',
-        className
-      )}
       {...props}
+      className={cn(
+        'w-auto p-4 shadow-md rounded-lg bg-white',
+        props.className
+      )}
     >
       {children}
     </div>
