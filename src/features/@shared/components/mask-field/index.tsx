@@ -1,13 +1,13 @@
 'use client'
 
-import { InputHTMLAttributes, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import IMask from 'imask'
 import { Controller, FieldValues } from 'react-hook-form'
 
-import { TextField } from '../text-field'
+import { TextField, TextFieldProps } from '../text-field'
 
-interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+interface MaskFieldProps extends TextFieldProps {
   name: string
   label?: string
   pattern: string
@@ -30,7 +30,7 @@ export const MaskField = ({
   control,
   onValidate,
   ...props
-}: TextFieldProps) => {
+}: MaskFieldProps) => {
   const [maskedValue, setMaskedValue] = useState('')
 
   const masked = useMemo(

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function EmployeesPage() {
   return (
     <div className="flex flex-col w-full">
-      <header className="flex flex-col items-start gap-3 p-8">
+      <header className="flex flex-wrap items-start gap-3 p-8">
         <EmployeeRegistrationModal>
           <Button>
             <Plus />
