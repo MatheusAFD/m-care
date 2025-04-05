@@ -14,9 +14,11 @@ import { EmployeeFormStepsProvider } from '../../contexts'
 import { FormProgressSteps } from '../form-progress-steps'
 import { EmployeeFormData } from '../../types'
 
+import {
+  getEmployee,
+  updateEmployee
+} from '@m-care/features/employees/services/'
 import { DialogProps } from '@m-care/features/@shared/types'
-import { getEmployee } from '../../services/get-employee'
-import { editEmployee } from '../../services/edit-employee'
 
 interface EmployeeEditFormProps extends DialogProps {
   employeeId: string
@@ -26,7 +28,7 @@ export const EmployeeEditModal = (props: EmployeeEditFormProps) => {
   const { employeeId, isOpen, onOpenChange, onClose } = props
 
   const onSubmit = async (data: EmployeeFormData) => {
-    const [error] = await editEmployee({ employeeId, data })
+    const [error] = await updateEmployee({ employeeId, data })
 
     if (error) {
       toast.error('Erro!', {
