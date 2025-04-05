@@ -14,14 +14,14 @@ import { getNameInitials } from '@m-care/features/@shared/utils'
 import { EmployeeCardProps } from './types'
 
 export const EmployeeCard = (props: EmployeeCardProps) => {
-  const { name, color } = props
+  const { name, color, onEdit, ...cardProps } = props
 
   const nameInitials = getNameInitials(name)
 
   return (
     <CustomCard
       className="relative p-0 w-72 h-40 flex flex-col items-center justify-center overflow-hidden"
-      {...props}
+      {...cardProps}
     >
       <div
         className="absolute top-0 h-2 w-full"
@@ -46,6 +46,7 @@ export const EmployeeCard = (props: EmployeeCardProps) => {
             className="absolute top-4 right-2"
             variant="outline"
             size="icon"
+            onClick={onEdit}
           >
             <Edit />
           </Button>

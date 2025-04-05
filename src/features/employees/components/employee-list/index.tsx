@@ -2,22 +2,37 @@
 
 import { PaginationButtons } from '@m-care/features/@shared/components'
 import { useGetEmployees } from '../../hooks'
-import { EmployeeResponse } from '../../types'
+import { EmployeesResponse } from '../../types'
 import { EmployeeCard } from '../employee-card'
-import { useUrlFilters } from '@m-care/features/@shared/hooks/'
+import { useDisclosure, useUrlFilters } from '@m-care/features/@shared/hooks/'
+import { EmployeeEditModal } from '../employee-edit-modal'
+import { useState } from 'react'
 
 interface EmployeeListProps {
-  initialData: EmployeeResponse | null
+  initialData: EmployeesResponse | null
 }
 
 export const EmployeeList = ({ initialData }: EmployeeListProps) => {
+  const [selectedEmployee, setSelectedEmployee] = useState('')
+
   const { handlePageChange, page } = useUrlFilters()
+
+  const { isOpen, onOpenChange } = useDisclosure()
 
   const { data } = useGetEmployees({
     initialData,
     limit: 20,
     page
   })
+
+  const handleEdit = async (employeeId: string) => {
+    setSelectedEmployee(employeeId)
+    onOpenChange()
+  }
+
+  const handleCloseModal = () => {
+    setSelectedEmployee('')
+  }
 
   return (
     <>
@@ -27,6 +42,7 @@ export const EmployeeList = ({ initialData }: EmployeeListProps) => {
             key={employee.id}
             name={employee.name}
             color={employee.color}
+            onEdit={() => handleEdit(employee.id)}
           />
         ))}
       </div>
@@ -38,6 +54,13 @@ export const EmployeeList = ({ initialData }: EmployeeListProps) => {
         totalPages={data?.pagination.totalPages}
         page={page}
         className="mt-8"
+      />
+
+      <EmployeeEditModal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        employeeId={selectedEmployee}
+        onClose={handleCloseModal}
       />
     </>
   )

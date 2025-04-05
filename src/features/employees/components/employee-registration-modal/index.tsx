@@ -1,4 +1,8 @@
+'use client'
+
 import { PropsWithChildren } from 'react'
+
+import { toast } from 'sonner'
 
 import {
   Dialog,
@@ -7,12 +11,32 @@ import {
   DialogTrigger,
   DialogTitle
 } from '@m-care/features/@shared/components/ui'
-import { CreateEmployeeForm } from '../create-employee-form'
+import { EmployeeForm } from '../employee-form'
 import { EmployeeFormStepsProvider } from '../../contexts'
 
 import { FormProgressSteps } from '../form-progress-steps'
+import { EmployeeFormData } from '../../types'
+import { createEmployee } from '../../services'
 
 export const EmployeeRegistrationModal = ({ children }: PropsWithChildren) => {
+  const onSubmit = async (data: EmployeeFormData) => {
+    const [error] = await createEmployee(data)
+
+    if (error) {
+      toast.error('Erro!', {
+        description: 'Erro ao criar colaborador.'
+      })
+
+      return
+    }
+
+    toast.success('Sucesso!', {
+      description: 'Colaborador criado com sucesso.'
+    })
+
+    return
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -26,7 +50,7 @@ export const EmployeeRegistrationModal = ({ children }: PropsWithChildren) => {
             <FormProgressSteps />
           </DialogHeader>
 
-          <CreateEmployeeForm />
+          <EmployeeForm onSubmit={onSubmit} />
         </DialogContent>
       </EmployeeFormStepsProvider>
     </Dialog>

@@ -1,19 +1,25 @@
 import { useState, useTransition } from 'react'
 
-import { toast } from 'sonner'
 import { useFormContext } from 'react-hook-form'
 
 import { MaskField, TextField } from '@m-care/features/@shared/components'
-import { EmployeeFormData } from '@m-care/features/employees/types'
 import { Button } from '@m-care/features/@shared/components/ui'
-import { useEmployeeForm } from '@m-care/features/employees/hooks'
-import { EmployeeFormStepEnum } from '@m-care/features/employees/enums'
-import { getAddressByCep } from '@m-care/features/@shared/services'
-import { createEmployee } from '@m-care/features/employees/services'
 
+import { useEmployeeForm } from '@m-care/features/employees/hooks'
 import { useDisclosure } from '@m-care/features/@shared/hooks'
 
-export const EmployeeAddressStep = () => {
+import { getAddressByCep } from '@m-care/features/@shared/services'
+import { EmployeeFormStepEnum } from '@m-care/features/employees/enums'
+import { EmployeeFormData } from '@m-care/features/employees/types'
+
+interface EmployeeAddressStepProps {
+  saveText?: string
+  onSubmit: (data: EmployeeFormData) => VoidFunction | Promise<void>
+}
+
+export const EmployeeAddressStep = (props: EmployeeAddressStepProps) => {
+  const { onSubmit, saveText = 'Criar colaborador' } = props
+
   const [addressFetchIsCompleted, setAddressFetchIsCompleted] = useState(true)
 
   const [isFetchingAddress, startTransition] = useTransition()
@@ -36,31 +42,20 @@ export const EmployeeAddressStep = () => {
     updateFormStep(EmployeeFormStepEnum.PersonalData)
   }
 
-  const onSubmit = async (data: EmployeeFormData) => {
-    const [error, response] = await createEmployee(data)
-
-    if (error) {
-      toast.error('Erro!', {
-        description: 'Erro ao criar colaborador.'
-      })
-
-      return
-    }
-
-    toast.success('Sucesso!', {
-      description: 'Colaborador criado com sucesso.'
-    })
+  const handleEmployeeFormSubmit = async (data: EmployeeFormData) => {
+    await onSubmit(data)
 
     reset()
     dismissDialog()
+    updateFormStep(EmployeeFormStepEnum.PersonalData)
 
-    return response
+    return
   }
 
   const disableLocation = addressFetchIsCompleted
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(handleEmployeeFormSubmit)}>
       <div className="w-full grid gap-4 grid-cols-2 animate-fadeRender">
         <MaskField
           control={control}
@@ -148,8 +143,9 @@ export const EmployeeAddressStep = () => {
           size="lg"
           type="submit"
           disabled={!isValid || isSubmitting || isFetchingAddress}
+          isLoading={isSubmitting}
         >
-          Criar colaborador
+          {saveText}
         </Button>
       </footer>
     </form>

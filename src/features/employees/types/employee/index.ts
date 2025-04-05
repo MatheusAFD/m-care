@@ -1,10 +1,7 @@
-import { PaginatedResponse } from '@m-care/features/@shared/types'
-
-export type EmployeeResponse = PaginatedResponse<Employee[]>
-
 export interface Employee {
   id: string
   name: string
+  email: string
   status: string
   color: string
   phone: string
