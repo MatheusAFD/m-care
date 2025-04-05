@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 
 import { Plus } from 'lucide-react'
 
-import { Loading } from '@m-care/features/@shared/components'
+import { Loading, SearchFilter } from '@m-care/features/@shared/components'
 import { Button } from '@m-care/features/@shared/components/ui'
 import {
   EmployeeContainer,
@@ -18,13 +18,15 @@ export const metadata: Metadata = {
 export default function EmployeesPage() {
   return (
     <div className="flex flex-col w-full">
-      <header className="p-8">
+      <header className="flex flex-col items-start gap-3 p-8">
         <EmployeeRegistrationModal>
           <Button>
             <Plus />
             Criar colaborador
           </Button>
         </EmployeeRegistrationModal>
+
+        <SearchFilter />
       </header>
 
       <Suspense fallback={<Loading />}>
