@@ -12,13 +12,8 @@ export const getEmployees = async (
     EmployeesResponse,
     ErrorResponse
   >({
-    url: `/employees?page=${page}&limit=${limit}`,
+    url: `/employees?page=${page}&limit=${limit}&search=${search}`,
     method: 'GET',
-    params: {
-      page,
-      limit,
-      search
-    },
     next: {
       tags: ['employees'],
       revalidate: 60
