@@ -5,6 +5,7 @@ import { useFormContext } from 'react-hook-form'
 import { MaskField, TextField } from '@m-care/features/@shared/components'
 import { Button } from '@m-care/features/@shared/components/ui'
 
+import { queryClient } from '@m-care/features/@shared/lib'
 import { useEmployeeForm } from '@m-care/features/employees/hooks'
 import { useDisclosure } from '@m-care/features/@shared/hooks'
 
@@ -44,6 +45,10 @@ export const EmployeeAddressStep = (props: EmployeeAddressStepProps) => {
 
   const handleEmployeeFormSubmit = async (data: EmployeeFormData) => {
     await onSubmit(data)
+
+    queryClient.invalidateQueries({
+      queryKey: ['get-employees']
+    })
 
     reset()
     dismissDialog()
