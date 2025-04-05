@@ -21,11 +21,18 @@ export const TextField = ({
   isRequired = true,
   ...props
 }: TextFieldProps) => {
+  const hasLabel = Boolean(label)
+
   return (
     <div className="w-full flex flex-col font-medium transition-all">
-      <label className="text-black text-xs mb-1" htmlFor={`data-test-id-${id}`}>
-        {label}: {isRequired && '*'}
-      </label>
+      {hasLabel && (
+        <label
+          className="text-black text-xs mb-1"
+          htmlFor={`data-test-id-${id}`}
+        >
+          {label}: {isRequired && '*'}
+        </label>
+      )}
 
       <input
         ref={ref}

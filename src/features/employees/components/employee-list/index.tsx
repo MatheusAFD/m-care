@@ -15,14 +15,15 @@ interface EmployeeListProps {
 export const EmployeeList = ({ initialData }: EmployeeListProps) => {
   const [selectedEmployee, setSelectedEmployee] = useState('')
 
-  const { handlePageChange, page } = useUrlFilters()
+  const { page, search, handlePageChange } = useUrlFilters()
 
   const { isOpen, onOpenChange } = useDisclosure()
 
   const { data } = useGetEmployees({
     initialData,
     limit: 20,
-    page
+    page,
+    search
   })
 
   const handleEdit = async (employeeId: string) => {
