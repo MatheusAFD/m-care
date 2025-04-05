@@ -26,10 +26,10 @@ export const SearchFilter = () => {
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            size="icon"
+            size="sm"
             variant="outline"
             type="submit"
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-green-principal hover:text-green-dark transition-colors"
+            className="absolute right-[2px] top-1/2 transform -translate-y-1/2 text-green-principal hover:text-green-dark transition-colors"
           >
             <Search />
           </Button>
@@ -40,6 +40,7 @@ export const SearchFilter = () => {
       <TextField
         name="search"
         type="search"
+        fieldSize="small"
         placeholder="Pesquisar colaborador"
         defaultValue={search}
       />
