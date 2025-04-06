@@ -7,9 +7,9 @@ import {
   StepsContextProps
 } from '@m-care/features/@shared/context'
 
-import { EmployeeFormStepEnum } from '../../enums'
+import { EmployeeFormStepEnum } from '../../employees/enums'
 
-export const useEmployeeForm = () => {
+export const useSteps = () => {
   const context = use(StepsContext)
 
   if (!context) {
