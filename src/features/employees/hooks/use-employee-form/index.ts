@@ -2,10 +2,19 @@
 
 import { use } from 'react'
 
-import { EmployeeFormStepsContext } from '../../contexts'
+import {
+  StepsContext,
+  StepsContextProps
+} from '@m-care/features/@shared/context'
+
+import { EmployeeFormStepEnum } from '../../enums'
 
 export const useEmployeeForm = () => {
-  const context = use(EmployeeFormStepsContext)
+  const context = use(StepsContext)
 
-  return context
+  if (!context) {
+    throw new Error('useSteps must be used within a StepsProvider')
+  }
+
+  return context as StepsContextProps<EmployeeFormStepEnum>
 }
