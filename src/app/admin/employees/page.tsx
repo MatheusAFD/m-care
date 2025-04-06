@@ -27,7 +27,7 @@ export default function EmployeesPage() {
         </EmployeeRegistrationModal>
 
         <Suspense>
-          <SearchFilter />
+          <SearchFilter placeholder="Pesquisar colaborador" />
         </Suspense>
       </header>
 
