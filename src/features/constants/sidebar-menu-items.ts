@@ -18,7 +18,7 @@ export const sidebarMenuItems = [
   },
   {
     title: 'Unidades',
-    url: '/admin/home',
+    url: '/admin/units',
     icon: Building2,
     as: '/admin/units',
     requiredRoles: [RolesEnum.ADMIN]
