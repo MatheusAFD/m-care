@@ -6,7 +6,7 @@ import { MaskField, TextField } from '@m-care/features/@shared/components'
 import { Button } from '@m-care/features/@shared/components/ui'
 
 import { queryClient } from '@m-care/features/@shared/lib'
-import { useEmployeeForm } from '@m-care/features/employees/hooks'
+import { useSteps } from '@m-care/features/@shared/hooks'
 import { useDisclosure } from '@m-care/features/@shared/hooks'
 
 import { getAddressByCep } from '@m-care/features/@shared/services'
@@ -27,7 +27,7 @@ export const EmployeeAddressStep = (props: EmployeeAddressStepProps) => {
 
   const { dismissDialog } = useDisclosure()
 
-  const { updateFormStep } = useEmployeeForm()
+  const { updateFormStep } = useSteps()
 
   const {
     register,
