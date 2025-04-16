@@ -44,7 +44,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const hasLabel = Boolean(label)
 
     return (
-      <div className="w-full flex flex-col font-medium transition-all">
+      <fieldset className="w-full flex flex-col font-medium transition-all">
         {hasLabel && (
           <label
             className="text-black text-xs mb-1"
@@ -80,7 +80,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             </div>
           )}
         </div>
-      </div>
+      </fieldset>
     )
   }
 )
