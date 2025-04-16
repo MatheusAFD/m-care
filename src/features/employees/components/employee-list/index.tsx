@@ -51,9 +51,9 @@ export const EmployeeList = ({ initialData }: EmployeeListProps) => {
 
       <PaginationButtons
         handlePageChange={handlePageChange}
-        hasNextPage={data?.pagination.hasNextPage}
-        hasPrevPage={data?.pagination.hasPreviousPage}
-        totalPages={data?.pagination.totalPages}
+        hasNextPage={data?.pagination.hasNextPage ?? false}
+        hasPrevPage={data?.pagination.hasPreviousPage ?? false}
+        totalPages={data?.pagination.totalPages ?? 1}
         page={page}
         className="mt-8"
       />

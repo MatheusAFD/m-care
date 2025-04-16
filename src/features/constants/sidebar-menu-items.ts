@@ -1,4 +1,4 @@
-import { Building2, Calendar, DoorOpen, Home, Users } from 'lucide-react'
+import { Building2, Calendar, Home, Users } from 'lucide-react'
 import { RolesEnum } from '../@shared/enums'
 
 export const sidebarMenuItems = [
@@ -23,13 +23,7 @@ export const sidebarMenuItems = [
     as: '/admin/units',
     requiredRoles: [RolesEnum.ADMIN]
   },
-  {
-    title: 'Salas',
-    url: '/admin/home',
-    icon: DoorOpen,
-    as: 'admin/rooms',
-    requiredRoles: [RolesEnum.ADMIN]
-  },
+
   {
     title: 'Colaboradores',
     url: '/admin/employees',

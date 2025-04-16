@@ -3,9 +3,16 @@ import { Metadata } from 'next'
 
 import { Plus } from 'lucide-react'
 
-import { SearchFilter } from '@m-care/features/@shared/components'
+import {
+  Container,
+  Loading,
+  SearchFilter
+} from '@m-care/features/@shared/components'
 import { Button } from '@m-care/features/@shared/components/ui'
-import { UnitRegistrationModal } from '@m-care/features/units/components'
+import {
+  UnitRegistrationModal,
+  UnitsContainer
+} from '@m-care/features/units/components'
 
 export const metadata: Metadata = {
   title: 'Unidades',
@@ -14,8 +21,8 @@ export const metadata: Metadata = {
 
 export default function UnitsPage() {
   return (
-    <div className="flex flex-col w-full">
-      <header className="flex flex-wrap items-start gap-3 p-8">
+    <Container className="flex flex-col w-full p-8 gap-8">
+      <header className="flex w-full flex-row flex-wrap gap-3">
         <UnitRegistrationModal>
           <Button>
             <Plus />
@@ -27,6 +34,10 @@ export default function UnitsPage() {
           <SearchFilter placeholder="Pesquisar unidade" />
         </Suspense>
       </header>
-    </div>
+
+      <Suspense fallback={<Loading />}>
+        <UnitsContainer />
+      </Suspense>
+    </Container>
   )
 }
