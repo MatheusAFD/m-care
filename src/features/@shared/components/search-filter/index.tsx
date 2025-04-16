@@ -9,7 +9,13 @@ import { Button, Tooltip, TooltipContent, TooltipTrigger } from '../ui'
 
 import { useUrlFilters } from '../../hooks'
 
-export const SearchFilter = () => {
+interface SearchFilterProps {
+  placeholder?: string
+}
+
+export const SearchFilter = (props: SearchFilterProps) => {
+  const { placeholder = 'Pesquisar' } = props
+
   const { search, handleSearch } = useUrlFilters()
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -41,7 +47,7 @@ export const SearchFilter = () => {
         name="search"
         type="search"
         fieldSize="small"
-        placeholder="Pesquisar colaborador"
+        placeholder={placeholder}
         defaultValue={search}
       />
     </form>

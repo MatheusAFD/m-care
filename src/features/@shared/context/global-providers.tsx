@@ -1,6 +1,6 @@
 'use client'
 
-import React, { PropsWithChildren } from 'react'
+import React, { CSSProperties, PropsWithChildren } from 'react'
 
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -18,7 +18,16 @@ export const GlobalProviders: React.FC<AppProvidersProps> = ({
   return (
     <QueryClientProvider client={queryClient}>
       <NuqsAdapter>
-        <SidebarProvider>{children}</SidebarProvider>
+        <SidebarProvider
+          style={
+            {
+              '--sidebar-width': '14rem',
+              '--sidebar-width-mobile': 'full'
+            } as CSSProperties
+          }
+        >
+          {children}
+        </SidebarProvider>
       </NuqsAdapter>
     </QueryClientProvider>
   )
