@@ -1,17 +1,10 @@
 import { Suspense } from 'react'
 import { Metadata } from 'next'
 
-import { Plus } from 'lucide-react'
-
+import { Container, Loading } from '@m-care/features/@shared/components'
 import {
-  Container,
-  Loading,
-  SearchFilter
-} from '@m-care/features/@shared/components'
-import { Button } from '@m-care/features/@shared/components/ui'
-import {
-  UnitRegistrationModal,
-  UnitsContainer
+  UnitsContainer,
+  UnitsPageHeader
 } from '@m-care/features/units/components'
 
 export const metadata: Metadata = {
@@ -19,24 +12,27 @@ export const metadata: Metadata = {
   description: 'Gerenciamento de unidades'
 }
 
-export default function UnitsPage() {
+interface UnitsPageProps {
+  searchParams: Promise<{ status: string; search: string; page: number }>
+}
+
+export default async function UnitsPage({ searchParams }: UnitsPageProps) {
+  const filters = await searchParams
+
+  const { status = 'active', search = '', page = 1 } = filters
+
   return (
     <Container className="flex flex-col w-full p-8 gap-8">
-      <header className="flex w-full flex-row flex-wrap gap-3">
-        <UnitRegistrationModal>
-          <Button>
-            <Plus />
-            Criar unidade
-          </Button>
-        </UnitRegistrationModal>
-
-        <Suspense>
-          <SearchFilter placeholder="Pesquisar unidade" />
-        </Suspense>
-      </header>
+      <UnitsPageHeader />
 
       <Suspense fallback={<Loading />}>
-        <UnitsContainer />
+        <UnitsContainer
+          filters={{
+            search,
+            status,
+            page
+          }}
+        />
       </Suspense>
     </Container>
   )
