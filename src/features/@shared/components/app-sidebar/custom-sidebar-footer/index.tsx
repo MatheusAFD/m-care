@@ -1,4 +1,5 @@
 import { ChevronUp, LogOut, UserRoundPen, Wallet } from 'lucide-react'
+
 import {
   Avatar,
   AvatarFallback,
@@ -12,6 +13,7 @@ import {
   TooltipContent,
   TooltipTrigger
 } from '../../ui'
+
 import { getMe } from '@m-care/features/users/services'
 import { getNameInitials } from '@m-care/features/@shared/utils'
 import { RolesEnum } from '@m-care/features/@shared/enums'
@@ -54,13 +56,13 @@ export const CustomSidebarFooter = async () => {
                   <TooltipContent>{data?.name}</TooltipContent>
                 </Tooltip>
 
-                <p className="text-xs">
+                <p className="flex items-center text-xs">
                   {formattedRole[data?.roles.type ?? RolesEnum.USER]}
+
+                  <ChevronUp className="ml-auto size-5" />
                 </p>
               </div>
             </div>
-
-            <ChevronUp className="ml-auto" />
           </SidebarMenuButton>
         </DropdownMenuTrigger>
         <DropdownMenuContent

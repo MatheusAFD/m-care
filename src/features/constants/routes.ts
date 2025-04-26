@@ -9,6 +9,7 @@ export const publicRoutes = [
 export const privateRoutes = [
   { url: '/plans', requiredRoles: [RolesEnum.ADMIN] },
   { url: '/admin/home', requiredRoles: [RolesEnum.USER, RolesEnum.ADMIN] },
+  { url: '/admin/units', requiredRoles: [RolesEnum.USER, RolesEnum.ADMIN] },
   { url: '/admin/employees', requiredRoles: [RolesEnum.USER, RolesEnum.ADMIN] },
   { url: '/auth/refresh', requiredRoles: [RolesEnum.USER, RolesEnum.ADMIN] }
 ]

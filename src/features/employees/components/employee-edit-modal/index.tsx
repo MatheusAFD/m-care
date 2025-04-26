@@ -9,7 +9,6 @@ import {
   DialogTitle
 } from '@m-care/features/@shared/components/ui'
 import { EmployeeForm } from '../employee-form'
-import { EmployeeFormStepsProvider } from '../../contexts'
 
 import { FormProgressSteps } from '../form-progress-steps'
 import { EmployeeFormData } from '../../types'
@@ -19,6 +18,8 @@ import {
   updateEmployee
 } from '@m-care/features/employees/services/'
 import { DialogProps } from '@m-care/features/@shared/types'
+import { StepsProvider } from '@m-care/features/@shared/context'
+import { EmployeeFormStepEnum } from '../../enums'
 
 interface EmployeeEditFormProps extends DialogProps {
   employeeId: string
@@ -74,7 +75,7 @@ export const EmployeeEditModal = (props: EmployeeEditFormProps) => {
         }
       }}
     >
-      <EmployeeFormStepsProvider>
+      <StepsProvider initialStep={EmployeeFormStepEnum.PersonalData}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle asChild>
@@ -90,7 +91,7 @@ export const EmployeeEditModal = (props: EmployeeEditFormProps) => {
             saveText="Editar colaborador"
           />
         </DialogContent>
-      </EmployeeFormStepsProvider>
+      </StepsProvider>
     </Dialog>
   )
 }

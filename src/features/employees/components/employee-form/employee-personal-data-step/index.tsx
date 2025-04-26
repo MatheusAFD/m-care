@@ -3,14 +3,14 @@ import { useFormContext } from 'react-hook-form'
 import { MaskField, TextField } from '@m-care/features/@shared/components'
 import { Button, DialogClose } from '@m-care/features/@shared/components/ui'
 
-import { useEmployeeForm } from '@m-care/features/employees/hooks'
+import { useSteps } from '@m-care/features/@shared/hooks'
 import { usePartialFormValidation } from '@m-care/features/@shared/hooks'
 
 import { EmployeeFormStepEnum } from '@m-care/features/employees/enums'
 import { EmployeeFormData } from '@m-care/features/employees/types'
 
 export const EmployeePersonalDataStep = () => {
-  const { updateFormStep } = useEmployeeForm()
+  const { updateFormStep } = useSteps()
 
   const { isValid } = usePartialFormValidation<EmployeeFormData>({
     fields: ['name', 'email', 'phone']

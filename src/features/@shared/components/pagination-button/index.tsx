@@ -7,14 +7,20 @@ import { twMerge } from 'tailwind-merge'
 
 interface PaginationButtonsProps extends HTMLAttributes<HTMLDivElement> {
   page: number
-  totalPages?: number
-  hasPrevPage?: boolean
-  hasNextPage?: boolean
+  totalPages: number
+  hasPrevPage: boolean
+  hasNextPage: boolean
   handlePageChange: (page: number) => void
 }
 
 export const PaginationButtons = (props: PaginationButtonsProps) => {
-  const { page, totalPages, hasNextPage, hasPrevPage, handlePageChange } = props
+  const {
+    page = 1,
+    totalPages = 1,
+    hasNextPage = false,
+    hasPrevPage = false,
+    handlePageChange
+  } = props
 
   const hasThreeOrMorePages = (totalPages ?? 0) >= 3
   const shouldRenderThirdPage = hasThreeOrMorePages && page <= 1

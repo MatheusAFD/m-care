@@ -1,12 +1,13 @@
 'use client'
 
+import { useState } from 'react'
+
 import { PaginationButtons } from '@m-care/features/@shared/components'
 import { useGetEmployees } from '../../hooks'
 import { EmployeesResponse } from '../../types'
 import { EmployeeCard } from '../employee-card'
-import { useDisclosure, useUrlFilters } from '@m-care/features/@shared/hooks/'
+import { useDisclosure, useUrlFilters } from '@m-care/features/@shared/hooks'
 import { EmployeeEditModal } from '../employee-edit-modal'
-import { useState } from 'react'
 
 interface EmployeeListProps {
   initialData: EmployeesResponse | null
@@ -50,9 +51,9 @@ export const EmployeeList = ({ initialData }: EmployeeListProps) => {
 
       <PaginationButtons
         handlePageChange={handlePageChange}
-        hasNextPage={data?.pagination.hasNextPage}
-        hasPrevPage={data?.pagination.hasPreviousPage}
-        totalPages={data?.pagination.totalPages}
+        hasNextPage={data?.pagination.hasNextPage ?? false}
+        hasPrevPage={data?.pagination.hasPreviousPage ?? false}
+        totalPages={data?.pagination.totalPages ?? 1}
         page={page}
         className="mt-8"
       />

@@ -9,7 +9,13 @@ import { Button, Tooltip, TooltipContent, TooltipTrigger } from '../ui'
 
 import { useUrlFilters } from '../../hooks'
 
-export const SearchFilter = () => {
+interface SearchFilterProps {
+  placeholder?: string
+}
+
+export const SearchFilter = (props: SearchFilterProps) => {
+  const { placeholder = 'Pesquisar' } = props
+
   const { search, handleSearch } = useUrlFilters()
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -22,14 +28,13 @@ export const SearchFilter = () => {
   }
 
   return (
-    <form className="relative" onSubmit={handleSubmit}>
+    <form className="flex flex-row-reverse gap-1" onSubmit={handleSubmit}>
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            size="sm"
             variant="outline"
             type="submit"
-            className="absolute right-[2px] top-1/2 transform -translate-y-1/2 text-green-principal hover:text-green-dark transition-colors"
+            className=" text-green-principal hover:text-green-dark transition-colors"
           >
             <Search />
           </Button>
@@ -41,7 +46,7 @@ export const SearchFilter = () => {
         name="search"
         type="search"
         fieldSize="small"
-        placeholder="Pesquisar colaborador"
+        placeholder={placeholder}
         defaultValue={search}
       />
     </form>

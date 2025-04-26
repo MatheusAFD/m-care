@@ -1,9 +1,11 @@
 'use client'
 
-import { StepControl } from '@m-care/features/@shared/components/progress-step'
 import { User, Home } from 'lucide-react'
-import { useEmployeeForm } from '../../hooks'
+
+import { StepControl } from '@m-care/features/@shared/components/progress-step'
+
 import { EmployeeFormStepEnum } from '../../enums'
+import { useSteps } from '@m-care/features/@shared/hooks'
 
 export const FormProgressSteps = () => {
   const steps = [
@@ -11,7 +13,7 @@ export const FormProgressSteps = () => {
     { name: 'Endereço', icon: Home }
   ]
 
-  const { formStep } = useEmployeeForm()
+  const { formStep } = useSteps()
 
   const currentStep = {
     [EmployeeFormStepEnum.PersonalData]: 0,

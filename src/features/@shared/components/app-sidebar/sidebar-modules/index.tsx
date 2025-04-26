@@ -26,7 +26,7 @@ export const SidebarModules = async () => {
           requiredRoles={item.requiredRoles}
         >
           <SidebarMenuItem>
-            <SidebarMenuButton asChild size="lg" url={item.as}>
+            <SidebarMenuButton asChild size="sm" url={item.as}>
               <Link href={item.url}>
                 <item.icon />
                 <p>{item.title}</p>
