@@ -51,7 +51,7 @@ export const UnitFormFields = (props: UnitFormProps) => {
 
   return (
     <form onSubmit={handleSubmit(handleUnitFormSubmit)}>
-      <div className="w-full grid gap-4 grid-cols-3 animate-fadeRender">
+      <div className="w-full grid gap-4 grid-cols-[1fr_1fr_auto] animate-fadeRender">
         <div className="col-span-3">
           <TextField
             {...register('name')}
@@ -59,7 +59,7 @@ export const UnitFormFields = (props: UnitFormProps) => {
             label="Nome da unidade"
             placeholder="Ex: Unidade São Paulo"
             errorMessage={errors.name?.message}
-            className=" col-span-2"
+            className="col-span-2"
           />
         </div>
 
@@ -110,6 +110,7 @@ export const UnitFormFields = (props: UnitFormProps) => {
           placeholder="Ex: 123"
           inputMode="numeric"
           errorMessage={errors.number?.message}
+          className="max-w-20"
         />
 
         <div className="col-span-3 flex gap-4">

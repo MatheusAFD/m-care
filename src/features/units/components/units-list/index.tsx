@@ -1,10 +1,12 @@
 'use client'
+import { useState } from 'react'
 
 import { PaginationButtons } from '@m-care/features/@shared/components'
-import { useUrlFilters } from '@m-care/features/@shared/hooks'
+import { useDisclosure, useUrlFilters } from '@m-care/features/@shared/hooks'
 import { useGetUnits } from '@m-care/features/units/hooks/use-get-units'
 import { GetUnitsResponse } from '@m-care/features/units/types/get-units-response'
 import { UnitCard } from '../unit-card'
+import { UnitEditModal } from '../unit-edit-modal'
 
 interface UnitsListProps {
   initialData: GetUnitsResponse | null
@@ -13,7 +15,11 @@ interface UnitsListProps {
 export const UnitsList = (props: UnitsListProps) => {
   const { initialData } = props
 
+  const [selectedUnit, setSelectedUnit] = useState('')
+
   const { handlePageChange, page, search } = useUrlFilters()
+
+  const { isOpen, onOpenChange } = useDisclosure()
 
   const { data, pagination } = useGetUnits({
     initialData,
@@ -22,6 +28,15 @@ export const UnitsList = (props: UnitsListProps) => {
     search
   })
 
+  const handleEdit = async (employeeId: string) => {
+    setSelectedUnit(employeeId)
+    onOpenChange()
+  }
+
+  const handleCloseModal = () => {
+    setSelectedUnit('')
+  }
+
   return (
     <>
       <div className="flex flex-wrap gap-4">
@@ -29,7 +44,7 @@ export const UnitsList = (props: UnitsListProps) => {
           <UnitCard
             key={unit.id}
             unit={unit}
-            onEdit={() => console.log(unit)}
+            onEdit={() => handleEdit(unit.id)}
           />
         ))}
       </div>
@@ -41,6 +56,13 @@ export const UnitsList = (props: UnitsListProps) => {
         hasPrevPage={pagination.hasPreviousPage}
         handlePageChange={handlePageChange}
         className="mt-8"
+      />
+
+      <UnitEditModal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        unitId={selectedUnit}
+        onClose={handleCloseModal}
       />
     </>
   )
