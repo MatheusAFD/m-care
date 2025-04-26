@@ -11,10 +11,15 @@ export const updateUnit = async ({
   unitId,
   data
 }: UpdateUnitParams): Promise<[ErrorResponse | null, Unit | null]> => {
+  const unitStatus = data.status ? 'active' : 'inactive'
+
   const [error, response] = await httpClientFetch<Unit, ErrorResponse>({
     url: `/units/${unitId}`,
     method: 'PATCH',
-    data
+    data: {
+      ...data,
+      status: unitStatus
+    }
   })
 
   revalidateTag('get-units')

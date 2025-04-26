@@ -17,7 +17,7 @@ export const UnitsList = (props: UnitsListProps) => {
 
   const [selectedUnit, setSelectedUnit] = useState('')
 
-  const { handlePageChange, page, search } = useUrlFilters()
+  const { search, status, page, handlePageChange } = useUrlFilters()
 
   const { isOpen, onOpenChange } = useDisclosure()
 
@@ -25,7 +25,8 @@ export const UnitsList = (props: UnitsListProps) => {
     initialData,
     limit: 20,
     page,
-    search
+    search,
+    status
   })
 
   const handleEdit = async (employeeId: string) => {

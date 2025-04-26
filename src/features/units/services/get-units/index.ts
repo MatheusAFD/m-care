@@ -6,7 +6,8 @@ import { GetUnitsFilters } from './types'
 export const getUnits = async ({
   limit,
   page,
-  search
+  search,
+  status
 }: GetUnitsFilters): Promise<
   [ErrorResponse | null, GetUnitsResponse | null]
 > => {
@@ -15,7 +16,7 @@ export const getUnits = async ({
     ErrorResponse
   >({
     method: 'GET',
-    url: `/units?page=${page}&limit=${limit}&search=${search}`,
+    url: `/units?page=${page}&limit=${limit}&search=${search}&status=${status}`,
     next: {
       revalidate: 60,
       tags: ['get-units']
