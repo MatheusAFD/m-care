@@ -8,6 +8,7 @@ import {
   SwitchField,
   TextField
 } from '@m-care/features/@shared/components'
+import { Button, DialogClose } from '@m-care/features/@shared/components/ui'
 
 import { useDisclosure } from '@m-care/features/@shared/hooks'
 
@@ -156,14 +157,11 @@ export const UnitFormFields = (props: UnitFormProps) => {
       </div>
 
       <footer className="w-full flex gap-3 justify-end mt-8 place-self-end">
-        <Button
-          type="button"
-          variant="outline"
-          size="lg"
-          onClick={dismissDialog}
-        >
-          Cancelar
-        </Button>
+        <DialogClose asChild>
+          <Button type="button" variant="outline" size="lg">
+            Cancelar
+          </Button>
+        </DialogClose>
 
         <Button
           size="lg"
