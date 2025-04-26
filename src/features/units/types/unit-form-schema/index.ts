@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 export const UnitFormSchema = z.object({
   name: z.string().nonempty('Nome é obrigatório'),
+  status: z.boolean().default(false),
   phone: z
     .string()
     .nonempty('O telefone é obrigatório')

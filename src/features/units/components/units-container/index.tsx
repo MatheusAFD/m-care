@@ -4,12 +4,16 @@ import {
 } from '@m-care/features/@shared/components'
 import { getUnits } from '../../services'
 import { UnitsList } from '../units-list'
+import { UnitsInitialFilters } from './types'
 
-export const UnitsContainer = async () => {
+export const UnitsContainer = async ({ filters }: UnitsInitialFilters) => {
+  const { status, search, page } = filters
+
   const [error, response] = await getUnits({
     limit: 20,
-    page: 1,
-    search: ''
+    page: page,
+    search,
+    status
   })
 
   if (error) {

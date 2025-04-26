@@ -13,12 +13,13 @@ export const useGetUnits = ({
   initialData,
   limit,
   page,
-  search = ''
+  search = '',
+  status = 'active'
 }: UseGetEmployeesParams) => {
   const queryData = useQuery({
-    queryKey: ['get-units', limit, page, search],
+    queryKey: ['get-units', search, status, page, limit],
     queryFn: async () => {
-      const [error, response] = await getUnits({ limit, page, search })
+      const [error, response] = await getUnits({ limit, page, search, status })
       if (error) {
         throw error
       }

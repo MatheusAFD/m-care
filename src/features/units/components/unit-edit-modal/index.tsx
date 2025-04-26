@@ -43,9 +43,14 @@ export const UnitEditModal = (props: EmployeeEditFormProps) => {
   }
 
   const defaultValues = async () => {
-    const [error, employee] = await getUnit({
+    const [error, unit] = await getUnit({
       unitId
     })
+
+    const formattedData = {
+      ...unit,
+      status: unit?.status === 'ACTIVE' ? true : false
+    }
 
     if (error) {
       toast.error('Erro!', {
@@ -55,7 +60,7 @@ export const UnitEditModal = (props: EmployeeEditFormProps) => {
       return
     }
 
-    return employee
+    return formattedData
   }
 
   return (

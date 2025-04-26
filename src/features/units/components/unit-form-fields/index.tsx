@@ -3,8 +3,12 @@
 import { useTransition } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { MaskField, TextField } from '@m-care/features/@shared/components'
-import { Button } from '@m-care/features/@shared/components/ui'
+import {
+  MaskField,
+  SwitchField,
+  TextField
+} from '@m-care/features/@shared/components'
+import { Button, DialogClose } from '@m-care/features/@shared/components/ui'
 
 import { useDisclosure } from '@m-care/features/@shared/hooks'
 
@@ -51,8 +55,8 @@ export const UnitFormFields = (props: UnitFormProps) => {
 
   return (
     <form onSubmit={handleSubmit(handleUnitFormSubmit)}>
-      <div className="w-full grid gap-4 grid-cols-[1fr_1fr_auto] animate-fadeRender">
-        <div className="col-span-3">
+      <div className="w-full grid items-end gap-4 grid-cols-[1fr_1fr_auto] animate-fadeRender">
+        <div className="col-span-2">
           <TextField
             {...register('name')}
             id="name"
@@ -62,6 +66,8 @@ export const UnitFormFields = (props: UnitFormProps) => {
             className="col-span-2"
           />
         </div>
+
+        <SwitchField control={control} label="Status" name="status" />
 
         <MaskField
           label="Telefone"
@@ -110,7 +116,7 @@ export const UnitFormFields = (props: UnitFormProps) => {
           placeholder="Ex: 123"
           inputMode="numeric"
           errorMessage={errors.number?.message}
-          className="max-w-20"
+          className="max-w-28"
         />
 
         <div className="col-span-3 flex gap-4">
@@ -151,14 +157,11 @@ export const UnitFormFields = (props: UnitFormProps) => {
       </div>
 
       <footer className="w-full flex gap-3 justify-end mt-8 place-self-end">
-        <Button
-          type="button"
-          variant="outline"
-          size="lg"
-          onClick={dismissDialog}
-        >
-          Cancelar
-        </Button>
+        <DialogClose asChild>
+          <Button type="button" variant="outline" size="lg">
+            Cancelar
+          </Button>
+        </DialogClose>
 
         <Button
           size="lg"
