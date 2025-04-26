@@ -28,14 +28,13 @@ export const SearchFilter = (props: SearchFilterProps) => {
   }
 
   return (
-    <form className="relative" onSubmit={handleSubmit}>
+    <form className="flex flex-row-reverse gap-1" onSubmit={handleSubmit}>
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            size="sm"
             variant="outline"
             type="submit"
-            className="absolute right-[2px] top-1/2 transform -translate-y-1/2 text-green-principal hover:text-green-dark transition-colors"
+            className=" text-green-principal hover:text-green-dark transition-colors"
           >
             <Search />
           </Button>
