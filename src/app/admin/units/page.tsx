@@ -7,32 +7,32 @@ import {
   UnitsPageHeader
 } from '@m-care/features/units/components'
 
+import { RouteParamsWithFilters } from '@m-care/features/@shared/types'
+
 export const metadata: Metadata = {
   title: 'Unidades',
   description: 'Gerenciamento de unidades'
 }
 
-interface UnitsPageProps {
-  searchParams: Promise<{ status: string; search: string; page: number }>
-}
-
-export default async function UnitsPage({ searchParams }: UnitsPageProps) {
+export default async function UnitsPage({
+  searchParams
+}: RouteParamsWithFilters) {
   const filters = await searchParams
 
   const { status = 'active', search = '', page = 1 } = filters
+
+  const filtersParams = {
+    status,
+    search,
+    page
+  }
 
   return (
     <Container className="flex flex-col w-full p-8 gap-8">
       <UnitsPageHeader />
 
       <Suspense fallback={<Loading />}>
-        <UnitsContainer
-          filters={{
-            search,
-            status,
-            page
-          }}
-        />
+        <UnitsContainer filters={filtersParams} />
       </Suspense>
     </Container>
   )
