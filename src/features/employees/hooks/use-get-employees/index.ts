@@ -11,12 +11,18 @@ export const useGetEmployees = ({
   initialData,
   limit,
   page,
-  search = ''
+  search,
+  status
 }: UseGetEmployeesParams) => {
   const queryData = useQuery({
-    queryKey: ['get-employees', limit, page, search],
+    queryKey: ['get-employees', search, page, limit, status],
     queryFn: async () => {
-      const [error, response] = await getEmployees({ limit, page, search })
+      const [error, response] = await getEmployees({
+        limit,
+        page,
+        search,
+        status
+      })
       if (error) {
         throw error
       }

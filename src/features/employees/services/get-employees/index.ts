@@ -6,13 +6,13 @@ import { GetEmployeeFilters } from './types'
 export const getEmployees = async (
   filters: GetEmployeeFilters
 ): Promise<[ErrorResponse | null, EmployeesResponse | null]> => {
-  const { page, limit, search } = filters
+  const { page, limit, search, status } = filters
 
   const [error, response] = await httpClientFetch<
     EmployeesResponse,
     ErrorResponse
   >({
-    url: `/employees?page=${page}&limit=${limit}&search=${search}`,
+    url: `/employees?page=${page}&limit=${limit}&search=${search}&status=${status}`,
     method: 'GET',
     next: {
       tags: ['employees'],
