@@ -96,6 +96,9 @@ importers:
       '@eslint/eslintrc':
         specifier: ^3
         version: 3.3.1
+      '@next/eslint-plugin-next':
+        specifier: ^15.3.1
+        version: 15.3.1
       '@types/node':
         specifier: ^20
         version: 20.17.25
@@ -114,9 +117,15 @@ importers:
       eslint-config-prettier:
         specifier: ^10.0.1
         version: 10.1.1(eslint@9.23.0(jiti@1.21.7))
+      eslint-plugin-import-helpers:
+        specifier: ^2.0.1
+        version: 2.0.1(eslint@9.23.0(jiti@1.21.7))
       eslint-plugin-prettier:
         specifier: ^5.2.3
         version: 5.2.3(eslint-config-prettier@10.1.1(eslint@9.23.0(jiti@1.21.7)))(eslint@9.23.0(jiti@1.21.7))(prettier@3.5.3)
+      eslint-plugin-react-hooks:
+        specifier: ^5.2.0
+        version: 5.2.0(eslint@9.23.0(jiti@1.21.7))
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -365,6 +374,9 @@ packages:
 
   '@next/eslint-plugin-next@15.1.6':
     resolution: {integrity: sha512-+slMxhTgILUntZDGNgsKEYHUvpn72WP1YTlkmEhS51vnVd7S9jEEy0n9YAMcI21vUG4akTw9voWH02lrClt/yw==}
+
+  '@next/eslint-plugin-next@15.3.1':
+    resolution: {integrity: sha512-oEs4dsfM6iyER3jTzMm4kDSbrQJq8wZw5fmT6fg2V3SMo+kgG+cShzLfEV20senZzv8VF+puNLheiGPlBGsv2A==}
 
   '@next/swc-darwin-arm64@15.2.1':
     resolution: {integrity: sha512-aWXT+5KEREoy3K5AKtiKwioeblmOvFFjd+F3dVleLvvLiQ/mD//jOOuUcx5hzcO9ISSw4lrqtUPntTpK32uXXQ==}
@@ -1390,6 +1402,11 @@ packages:
         optional: true
       eslint-import-resolver-webpack:
         optional: true
+
+  eslint-plugin-import-helpers@2.0.1:
+    resolution: {integrity: sha512-MSiQZV0k+bQlt7RnHZrJxDBE948urZthusQt78FKmQ5/WLm5PpS8L16+2JVGBiSffneOAe4fud8RdYmqPveo8A==}
+    peerDependencies:
+      eslint: 9.x
 
   eslint-plugin-import@2.31.0:
     resolution: {integrity: sha512-ixmkI62Rbc2/w8Vfxyh1jQRTdRTF52VxwRVHl/ykPAmqG+Nb7/kNn+byLP0LxPgI7zWA16Jt82SybJInmMia3A==}
@@ -2742,6 +2759,10 @@ snapshots:
     dependencies:
       fast-glob: 3.3.1
 
+  '@next/eslint-plugin-next@15.3.1':
+    dependencies:
+      fast-glob: 3.3.1
+
   '@next/swc-darwin-arm64@15.2.1':
     optional: true
 
@@ -3791,6 +3812,10 @@ snapshots:
       eslint-import-resolver-typescript: 3.9.1(eslint-plugin-import@2.31.0)(eslint@9.23.0(jiti@1.21.7))
     transitivePeerDependencies:
       - supports-color
+
+  eslint-plugin-import-helpers@2.0.1(eslint@9.23.0(jiti@1.21.7)):
+    dependencies:
+      eslint: 9.23.0(jiti@1.21.7)
 
   eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.27.0(eslint@9.23.0(jiti@1.21.7))(typescript@5.8.2))(eslint-import-resolver-typescript@3.9.1)(eslint@9.23.0(jiti@1.21.7)):
     dependencies:
