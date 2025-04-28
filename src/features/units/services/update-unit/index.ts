@@ -4,8 +4,9 @@ import { revalidateTag } from 'next/cache'
 
 import { httpClientFetch } from '@m-care/features/@shared/lib'
 import { ErrorResponse } from '@m-care/features/@shared/types'
-import { UpdateUnitParams } from './types'
+
 import { Unit } from '../../types'
+import { UpdateUnitParams } from './types'
 
 export const updateUnit = async ({
   unitId,

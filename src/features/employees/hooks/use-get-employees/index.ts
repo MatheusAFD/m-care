@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
+
 import { getEmployees } from '../../services/get-employees'
-import { EmployeesResponse } from '../../types'
 import { GetEmployeeFilters } from '../../services/get-employees/types'
+import { EmployeesResponse } from '../../types'
 
 interface UseGetEmployeesParams extends GetEmployeeFilters {
   initialData?: EmployeesResponse | null

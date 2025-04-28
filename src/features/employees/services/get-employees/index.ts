@@ -1,6 +1,7 @@
 import { httpClientFetch } from '@m-care/features/@shared/lib'
-import { EmployeesResponse } from '../../types'
 import { ErrorResponse } from '@m-care/features/@shared/types'
+
+import { EmployeesResponse } from '../../types'
 import { GetEmployeeFilters } from './types'
 
 export const getEmployees = async (

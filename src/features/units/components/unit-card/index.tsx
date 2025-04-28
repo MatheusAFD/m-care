@@ -2,6 +2,7 @@ import Image from 'next/image'
 
 import { Edit, Map, MapPin } from 'lucide-react'
 
+import { CustomCard } from '@m-care/features/@shared/components'
 import {
   Avatar,
   Button,
@@ -9,7 +10,6 @@ import {
   TooltipContent,
   TooltipTrigger
 } from '@m-care/features/@shared/components/ui'
-import { CustomCard } from '@m-care/features/@shared/components'
 
 import { UnitCardProps } from './types'
 

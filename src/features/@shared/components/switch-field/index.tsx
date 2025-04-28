@@ -1,9 +1,10 @@
 'use client'
 
 import { useRef } from 'react'
+import { Controller, Control } from 'react-hook-form'
+
 import { Switch } from '../ui'
 import { SwitchFieldProps } from './types'
-import { Controller, Control } from 'react-hook-form'
 
 interface Props extends SwitchFieldProps {
   name: string

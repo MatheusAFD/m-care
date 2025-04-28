@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+
 import { Metadata } from 'next'
 
 import { Loading } from '@m-care/features/@shared/components'

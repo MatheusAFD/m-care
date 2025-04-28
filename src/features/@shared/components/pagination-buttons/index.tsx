@@ -1,9 +1,9 @@
 import { HTMLAttributes } from 'react'
 
 import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { twMerge } from 'tailwind-merge'
 
 import { Button } from '../ui'
-import { twMerge } from 'tailwind-merge'
 
 interface PaginationButtonsProps extends HTMLAttributes<HTMLDivElement> {
   page: number

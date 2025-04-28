@@ -1,6 +1,7 @@
 import React from 'react'
-import { twMerge } from 'tailwind-merge'
+
 import { Check, LucideIcon } from 'lucide-react'
+import { twMerge } from 'tailwind-merge'
 
 interface Step {
   name: string

@@ -1,4 +1,5 @@
 import { httpClientFetch } from '@m-care/features/@shared/lib'
+
 import { RegisterCompanyFormData } from '../components/register-company-form'
 
 export const registerCompany = async (data: RegisterCompanyFormData) => {

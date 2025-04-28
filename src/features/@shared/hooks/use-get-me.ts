@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+
 import { getMe } from '../../users/services/get-me/get-me'
 
 export const useGetMe = () => {

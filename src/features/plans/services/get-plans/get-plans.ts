@@ -1,5 +1,6 @@
 import { httpClientFetch } from '@m-care/features/@shared/lib'
 import { ResponseConfig } from '@m-care/features/@shared/lib/client-fetch'
+
 import { Plan } from './get-plans-response'
 
 export const getPlans = async (): Promise<ResponseConfig<Plan[]>> => {

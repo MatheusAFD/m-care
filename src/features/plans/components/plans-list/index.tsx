@@ -4,11 +4,10 @@ import { useState } from 'react'
 
 import { toast } from 'sonner'
 
-import { PlanCard, PlanPaymentModal } from '@m-care/features/plans/components'
-
-import { StripeProvider } from '@m-care/features/stripe/context'
 import { useDisclosure } from '@m-care/features/@shared/hooks'
+import { PlanCard, PlanPaymentModal } from '@m-care/features/plans/components'
 import { Plan } from '@m-care/features/plans/services'
+import { StripeProvider } from '@m-care/features/stripe/context'
 
 interface PlansListProps {
   plans: Plan[] | null

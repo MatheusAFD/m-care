@@ -1,3 +1,5 @@
+import { Info } from 'lucide-react'
+
 import {
   Table,
   TableBody,
@@ -11,9 +13,9 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from '@m-care/features/@shared/components/ui'
-import { Plan } from '../../services'
-import { Info } from 'lucide-react'
 import { formatToMonetaryValue } from '@m-care/features/@shared/utils'
+
+import { Plan } from '../../services'
 
 interface PlansTableProps {
   plans: Plan[] | null

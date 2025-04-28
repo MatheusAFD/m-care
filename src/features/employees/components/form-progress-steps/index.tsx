@@ -3,9 +3,9 @@
 import { User, Home } from 'lucide-react'
 
 import { StepControl } from '@m-care/features/@shared/components/progress-step'
+import { useSteps } from '@m-care/features/@shared/hooks'
 
 import { EmployeeFormStepEnum } from '../../enums'
-import { useSteps } from '@m-care/features/@shared/hooks'
 
 export const FormProgressSteps = () => {
   const steps = [

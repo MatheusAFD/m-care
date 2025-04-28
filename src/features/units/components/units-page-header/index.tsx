@@ -5,9 +5,10 @@ import { Suspense } from 'react'
 import { Plus } from 'lucide-react'
 
 import { SearchFilter } from '@m-care/features/@shared/components'
-import { UnitRegistrationModal } from '../unit-registration-modal'
 import { Button, Toggle } from '@m-care/features/@shared/components/ui'
 import { useUrlFilters } from '@m-care/features/@shared/hooks'
+
+import { UnitRegistrationModal } from '../unit-registration-modal'
 
 export const UnitsPageHeader = () => {
   const { status, handleReset, handleStatusChange } = useUrlFilters()

@@ -30,9 +30,6 @@ const eslintConfig = [
             '/^react/',
             '/^next/',
             'module',
-            ['/^@?shared\/components/', '/^@?features\/[^/]+\/components/'],
-            '/^@?shared\//',
-            '/^@?features\//',
             '/^@/',
             ['parent', 'sibling', 'index']
           ],

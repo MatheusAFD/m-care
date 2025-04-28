@@ -1,13 +1,13 @@
 import { Suspense } from 'react'
+
 import { Metadata } from 'next'
 
 import { Container, Loading } from '@m-care/features/@shared/components'
+import { RouteParamsWithFilters } from '@m-care/features/@shared/types'
 import {
   UnitsContainer,
   UnitsPageHeader
 } from '@m-care/features/units/components'
-
-import { RouteParamsWithFilters } from '@m-care/features/@shared/types'
 
 export const metadata: Metadata = {
   title: 'Unidades',

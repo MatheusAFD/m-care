@@ -1,16 +1,17 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
 
+import { toast } from 'sonner'
+import { z } from 'zod'
+
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   MaskField,
   PasswordField,
   TextField
 } from '@m-care/features/@shared/components'
 import { Button } from '@m-care/features/@shared/components/ui'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
 
 import { registerCompany } from '../../services'
 

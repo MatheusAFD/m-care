@@ -4,10 +4,9 @@ import { FormEvent } from 'react'
 
 import { Search } from 'lucide-react'
 
+import { useUrlFilters } from '../../hooks'
 import { TextField } from '../text-field'
 import { Button, Tooltip, TooltipContent, TooltipTrigger } from '../ui'
-
-import { useUrlFilters } from '../../hooks'
 
 interface SearchFilterProps {
   placeholder?: string

@@ -7,10 +7,11 @@ import {
   NoDataBackground,
   PaginationButtons
 } from '@m-care/features/@shared/components'
+import { useDisclosure, useUrlFilters } from '@m-care/features/@shared/hooks'
+
 import { useGetEmployees } from '../../hooks'
 import { EmployeesResponse } from '../../types'
 import { EmployeeCard } from '../employee-card'
-import { useDisclosure, useUrlFilters } from '@m-care/features/@shared/hooks'
 import { EmployeeEditModal } from '../employee-edit-modal'
 
 interface EmployeeListProps {
