@@ -2,8 +2,9 @@
 import { revalidateTag } from 'next/cache'
 
 import { httpClientFetch } from '@m-care/features/@shared/lib'
-import { EmployeeFormData } from '../../types'
 import { ErrorResponse } from '@m-care/features/@shared/types'
+
+import { EmployeeFormData } from '../../types'
 import { CreateEmployeeResponse } from './types'
 
 export const createEmployee = async (

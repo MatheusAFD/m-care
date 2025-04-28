@@ -1,8 +1,8 @@
-import { Button } from '@m-care/features/@shared/components/ui'
-
 import { twMerge } from 'tailwind-merge'
-import { Plan } from '@m-care/features/plans/services/get-plans/get-plans-response'
+
+import { Button } from '@m-care/features/@shared/components/ui'
 import { formatToMonetaryValue } from '@m-care/features/@shared/utils'
+import { Plan } from '@m-care/features/plans/services/get-plans/get-plans-response'
 
 interface PlanCardProps {
   plan: Plan

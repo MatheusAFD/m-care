@@ -1,6 +1,10 @@
 export interface BaseQueryFilters {
-  page: number | null
-  limit: number | null
-  search?: string | null
-  status?: string | null
+  page: number
+  limit: number
+  search?: string
+  status?: string
+}
+
+export interface RouteParamsWithFilters {
+  searchParams: Promise<BaseQueryFilters>
 }

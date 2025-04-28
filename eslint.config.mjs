@@ -1,5 +1,7 @@
+import eslintPluginImportHelpers from 'eslint-plugin-import-helpers'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
+
 import { FlatCompat } from '@eslint/eslintrc'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -14,7 +16,28 @@ const eslintConfig = [
     'next/core-web-vitals',
     'next/typescript',
     'plugin:prettier/recommended'
-  )
+  ),
+  {
+    plugins: {
+      'import-helpers': eslintPluginImportHelpers
+    },
+    rules: {
+      'import-helpers/order-imports': [
+        'warn',
+        {
+          newlinesBetween: 'always',
+          groups: [
+            '/^react/',
+            '/^next/',
+            'module',
+            '/^@/',
+            ['parent', 'sibling', 'index']
+          ],
+          alphabetize: { order: 'asc', ignoreCase: true }
+        }
+      ]
+    }
+  }
 ]
 
 export default eslintConfig

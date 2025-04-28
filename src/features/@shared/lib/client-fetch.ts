@@ -1,6 +1,7 @@
 'use server'
 
 import { env } from '@m-care/env'
+
 import { getAuthToken } from '../utils'
 
 export type RequestConfig<TData = unknown> = {

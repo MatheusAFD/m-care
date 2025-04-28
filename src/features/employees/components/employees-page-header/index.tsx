@@ -8,9 +8,9 @@ import { SearchFilter } from '@m-care/features/@shared/components'
 import { Button, Toggle } from '@m-care/features/@shared/components/ui'
 import { useUrlFilters } from '@m-care/features/@shared/hooks'
 
-import { UnitRegistrationModal } from '../unit-registration-modal'
+import { EmployeeRegistrationModal } from '../employee-registration-modal'
 
-export const UnitsPageHeader = () => {
+export const EmployeesPageHeader = () => {
   const { status, handleReset, handleStatusChange } = useUrlFilters()
 
   const isFiltiringActive = status === 'active'
@@ -19,15 +19,15 @@ export const UnitsPageHeader = () => {
   return (
     <header className="flex flex-col gap-4">
       <div className="flex w-full flex-row flex-wrap gap-3">
-        <UnitRegistrationModal>
+        <EmployeeRegistrationModal>
           <Button>
             <Plus />
-            Criar unidade
+            Criar colaborador
           </Button>
-        </UnitRegistrationModal>
+        </EmployeeRegistrationModal>
 
         <Suspense>
-          <SearchFilter placeholder="Pesquisar unidade" />
+          <SearchFilter placeholder="Pesquisar colaborador" />
         </Suspense>
       </div>
 

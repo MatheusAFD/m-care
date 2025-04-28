@@ -2,10 +2,8 @@ import { useFormContext } from 'react-hook-form'
 
 import { MaskField, TextField } from '@m-care/features/@shared/components'
 import { Button, DialogClose } from '@m-care/features/@shared/components/ui'
-
 import { useSteps } from '@m-care/features/@shared/hooks'
 import { usePartialFormValidation } from '@m-care/features/@shared/hooks'
-
 import { EmployeeFormStepEnum } from '@m-care/features/employees/enums'
 import { EmployeeFormData } from '@m-care/features/employees/types'
 

@@ -1,5 +1,4 @@
-export interface GetEmployeeFilters {
-  page: number | null
-  limit: number | null
-  search?: string | null
-}
+import { BaseQueryFilters } from '@m-care/features/@shared/types'
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface GetEmployeeFilters extends BaseQueryFilters {}

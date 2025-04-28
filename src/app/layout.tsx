@@ -4,7 +4,6 @@ import { Poppins } from 'next/font/google'
 import './globals.css'
 
 import { Toaster } from '@m-care/features/@shared/components/ui'
-
 import { GlobalProviders } from '@m-care/features/@shared/context'
 
 const roboto = Poppins({

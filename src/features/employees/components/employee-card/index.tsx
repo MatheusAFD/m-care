@@ -1,5 +1,6 @@
 import { Edit } from 'lucide-react'
 
+import { CustomCard } from '@m-care/features/@shared/components'
 import {
   Avatar,
   AvatarFallback,
@@ -8,9 +9,8 @@ import {
   TooltipContent,
   TooltipTrigger
 } from '@m-care/features/@shared/components/ui'
-import { CustomCard } from '@m-care/features/@shared/components'
-
 import { getNameInitials } from '@m-care/features/@shared/utils'
+
 import { EmployeeCardProps } from './types'
 
 export const EmployeeCard = (props: EmployeeCardProps) => {

@@ -11,13 +11,13 @@ import {
   DialogTrigger,
   DialogTitle
 } from '@m-care/features/@shared/components/ui'
-import { EmployeeForm } from '../employee-form'
-
-import { FormProgressSteps } from '../form-progress-steps'
-import { EmployeeFormData } from '../../types'
-import { createEmployee } from '../../services'
 import { StepsProvider } from '@m-care/features/@shared/context'
+
 import { EmployeeFormStepEnum } from '../../enums'
+import { createEmployee } from '../../services'
+import { EmployeeFormData } from '../../types'
+import { EmployeeForm } from '../employee-form'
+import { FormProgressSteps } from '../form-progress-steps'
 
 export const EmployeeRegistrationModal = ({ children }: PropsWithChildren) => {
   const onSubmit = async (data: EmployeeFormData) => {

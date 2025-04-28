@@ -5,11 +5,11 @@ interface NoDataBackgroundProps extends ImageProps {
 }
 
 export const NoDataBackground = (props: NoDataBackgroundProps) => {
-  const { text } = props
+  const { text, alt } = props
 
   return (
     <div className="flex gap-8 flex-col items-center">
-      <Image width={640} height={640} {...props} />
+      <Image width={640} height={640} {...props} alt={alt} />
 
       <p className="text-3xl font-medium animate-pulse">{text}</p>
     </div>

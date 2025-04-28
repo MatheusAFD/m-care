@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { GetUnitsResponse } from '../../types/get-units-response'
-
 import { getUnits } from '../../services'
 import { GetUnitsFilters } from '../../services/get-units/types'
+import { GetUnitsResponse } from '../../types/get-units-response'
 
 interface UseGetEmployeesParams extends GetUnitsFilters {
   initialData?: GetUnitsResponse | null

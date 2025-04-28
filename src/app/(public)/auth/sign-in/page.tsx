@@ -1,5 +1,4 @@
 import { CustomCard, LineBadge } from '@m-care/features/@shared/components'
-
 import { SigninForm } from '@m-care/features/auth/sign-in/components'
 
 export default function SigninPage() {

@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
+
 import { useRouter } from 'next/navigation'
 
-import { toast } from 'sonner'
 import { io } from 'socket.io-client'
+import { toast } from 'sonner'
 
 import { env } from '@m-care/env'
-
 import { useGetMe } from '@m-care/features/@shared/hooks'
 
 interface SocketMessage {

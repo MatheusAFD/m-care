@@ -2,6 +2,8 @@
 
 import { PropsWithChildren } from 'react'
 
+import { toast } from 'sonner'
+
 import {
   Dialog,
   DialogHeader,
@@ -9,10 +11,10 @@ import {
   DialogTrigger,
   DialogTitle
 } from '@m-care/features/@shared/components/ui'
-import { UnitForm } from '../unit-form-container'
+
 import { createUnit } from '../../services/create-unit'
 import { UnitFormData } from '../../types'
-import { toast } from 'sonner'
+import { UnitForm } from '../unit-form-container'
 
 export const UnitRegistrationModal = ({ children }: PropsWithChildren) => {
   const onSubmit = async (data: UnitFormData) => {

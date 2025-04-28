@@ -1,14 +1,13 @@
 import Link from 'next/link'
 
+import { Restricted } from '@m-care/features/@shared/components'
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem
 } from '@m-care/features/@shared/components/ui'
-import { Restricted } from '@m-care/features/@shared/components'
-
-import { getMe } from '@m-care/features/users/services'
 import { sidebarMenuItems } from '@m-care/features/constants'
+import { getMe } from '@m-care/features/users/services'
 
 export const SidebarModules = async () => {
   const [error, data] = await getMe()

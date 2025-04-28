@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '../../ui'
-
-import { sidebarMenuItems } from '@m-care/features/constants'
 import { RolesEnum } from '@m-care/features/@shared/enums'
+import { sidebarMenuItems } from '@m-care/features/constants'
+
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '../../ui'
 
 export const PublicSidebarModules = () => {
   const filteredSidebarMenuItems = sidebarMenuItems.filter((item) =>
