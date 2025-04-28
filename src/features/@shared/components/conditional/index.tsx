@@ -1,4 +1,4 @@
-import { PropsWithChildren, isValidElement, cloneElement } from 'react'
+import React, { PropsWithChildren, isValidElement, cloneElement } from 'react'
 
 interface ConditionalProps {
   condition: boolean
@@ -12,13 +12,20 @@ export const Conditional = (props: PropsWithChildren<ConditionalProps>) => {
     return
   }
 
-  if (withFadeRender && isValidElement(children)) {
-    const childElement = children as React.ReactElement<{ className?: string }>
-    return cloneElement(childElement, {
-      className: [childElement.props.className || '', 'animate-fadeRender']
-        .filter(Boolean)
-        .join(' ')
+  if (withFadeRender) {
+    const childArray = React.Children.toArray(children)
+    const processedChildren = childArray.map((child) => {
+      if (isValidElement(child)) {
+        const childElement = child as React.ReactElement<{ className?: string }>
+        return cloneElement(childElement, {
+          className: [childElement.props.className || '', 'animate-fadeRender']
+            .filter(Boolean)
+            .join(' ')
+        })
+      }
+      return child
     })
+    return <>{processedChildren}</>
   }
 
   return <>{children}</>
