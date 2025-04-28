@@ -1,7 +1,9 @@
 import { Suspense } from 'react'
+
 import { Metadata } from 'next'
 
 import { Container, Loading } from '@m-care/features/@shared/components'
+import { RouteParamsWithFilters } from '@m-care/features/@shared/types'
 import {
   UnitsContainer,
   UnitsPageHeader
@@ -12,27 +14,25 @@ export const metadata: Metadata = {
   description: 'Gerenciamento de unidades'
 }
 
-interface UnitsPageProps {
-  searchParams: Promise<{ status: string; search: string; page: number }>
-}
-
-export default async function UnitsPage({ searchParams }: UnitsPageProps) {
+export default async function UnitsPage({
+  searchParams
+}: RouteParamsWithFilters) {
   const filters = await searchParams
 
   const { status = 'active', search = '', page = 1 } = filters
+
+  const filtersParams = {
+    status,
+    search,
+    page
+  }
 
   return (
     <Container className="flex flex-col w-full p-8 gap-8">
       <UnitsPageHeader />
 
       <Suspense fallback={<Loading />}>
-        <UnitsContainer
-          filters={{
-            search,
-            status,
-            page
-          }}
-        />
+        <UnitsContainer filters={filtersParams} />
       </Suspense>
     </Container>
   )

@@ -8,18 +8,17 @@ import {
   DialogContent,
   DialogTitle
 } from '@m-care/features/@shared/components/ui'
-import { EmployeeForm } from '../employee-form'
-
-import { FormProgressSteps } from '../form-progress-steps'
-import { EmployeeFormData } from '../../types'
-
+import { StepsProvider } from '@m-care/features/@shared/context'
+import { DialogProps } from '@m-care/features/@shared/types'
 import {
   getEmployee,
   updateEmployee
 } from '@m-care/features/employees/services/'
-import { DialogProps } from '@m-care/features/@shared/types'
-import { StepsProvider } from '@m-care/features/@shared/context'
+
 import { EmployeeFormStepEnum } from '../../enums'
+import { EmployeeFormData } from '../../types'
+import { EmployeeForm } from '../employee-form'
+import { FormProgressSteps } from '../form-progress-steps'
 
 interface EmployeeEditFormProps extends DialogProps {
   employeeId: string

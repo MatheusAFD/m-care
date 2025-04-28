@@ -8,12 +8,11 @@ import {
   DialogContent,
   DialogTitle
 } from '@m-care/features/@shared/components/ui'
-
 import { DialogProps } from '@m-care/features/@shared/types'
 
-import { UnitForm } from '../unit-form-container'
-import { UnitFormData } from '../../types'
 import { getUnit, updateUnit } from '../../services'
+import { UnitFormData } from '../../types'
+import { UnitForm } from '../unit-form-container'
 
 interface EmployeeEditFormProps extends DialogProps {
   unitId: string

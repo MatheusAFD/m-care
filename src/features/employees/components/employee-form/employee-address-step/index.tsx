@@ -1,14 +1,11 @@
 import { useState, useTransition } from 'react'
-
 import { useFormContext } from 'react-hook-form'
 
 import { MaskField, TextField } from '@m-care/features/@shared/components'
 import { Button } from '@m-care/features/@shared/components/ui'
-
-import { queryClient } from '@m-care/features/@shared/lib'
 import { useSteps } from '@m-care/features/@shared/hooks'
 import { useDisclosure } from '@m-care/features/@shared/hooks'
-
+import { queryClient } from '@m-care/features/@shared/lib'
 import { getAddressByCep } from '@m-care/features/@shared/services'
 import { EmployeeFormStepEnum } from '@m-care/features/employees/enums'
 import { EmployeeFormData } from '@m-care/features/employees/types'

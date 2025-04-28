@@ -2,11 +2,16 @@
 
 import { useState } from 'react'
 
-import { PaginationButtons } from '@m-care/features/@shared/components'
+import {
+  Conditional,
+  NoDataBackground,
+  PaginationButtons
+} from '@m-care/features/@shared/components'
+import { useDisclosure, useUrlFilters } from '@m-care/features/@shared/hooks'
+
 import { useGetEmployees } from '../../hooks'
 import { EmployeesResponse } from '../../types'
 import { EmployeeCard } from '../employee-card'
-import { useDisclosure, useUrlFilters } from '@m-care/features/@shared/hooks'
 import { EmployeeEditModal } from '../employee-edit-modal'
 
 interface EmployeeListProps {
@@ -16,7 +21,7 @@ interface EmployeeListProps {
 export const EmployeeList = ({ initialData }: EmployeeListProps) => {
   const [selectedEmployee, setSelectedEmployee] = useState('')
 
-  const { page, search, handlePageChange } = useUrlFilters()
+  const { page, search, status, handlePageChange } = useUrlFilters()
 
   const { isOpen, onOpenChange } = useDisclosure()
 
@@ -24,7 +29,8 @@ export const EmployeeList = ({ initialData }: EmployeeListProps) => {
     initialData,
     limit: 20,
     page,
-    search
+    search,
+    status
   })
 
   const handleEdit = async (employeeId: string) => {
@@ -36,18 +42,30 @@ export const EmployeeList = ({ initialData }: EmployeeListProps) => {
     setSelectedEmployee('')
   }
 
+  const hasData = Boolean(data?.pagination?.totalPages)
+
   return (
     <>
-      <div className="flex flex-wrap gap-4 px-8">
-        {data?.data.map((employee) => (
-          <EmployeeCard
-            key={employee.id}
-            name={employee.name}
-            color={employee.color}
-            onEdit={() => handleEdit(employee.id)}
-          />
-        ))}
-      </div>
+      <Conditional condition={hasData}>
+        <div className="flex flex-wrap gap-4">
+          {data?.data.map((employee) => (
+            <EmployeeCard
+              key={employee.id}
+              name={employee.name}
+              color={employee.color}
+              onEdit={() => handleEdit(employee.id)}
+            />
+          ))}
+        </div>
+      </Conditional>
+
+      <Conditional condition={!hasData}>
+        <NoDataBackground
+          src="/no-data-background/employees.svg"
+          alt="Imagem de um três pessoas no formato de desenho."
+          text="Nenhum colaborador encontrado."
+        />
+      </Conditional>
 
       <PaginationButtons
         handlePageChange={handlePageChange}

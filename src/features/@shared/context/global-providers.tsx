@@ -3,6 +3,7 @@
 import React, { CSSProperties, PropsWithChildren } from 'react'
 
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
+
 import { QueryClientProvider } from '@tanstack/react-query'
 
 import { SidebarProvider } from '../components/ui'

@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { toast } from 'sonner'
 
 import {
@@ -16,9 +15,9 @@ import {
   DialogTitle
 } from '@m-care/features/@shared/components/ui'
 import { DialogProps } from '@m-care/features/@shared/types'
-
-import { createSubscription } from '@m-care/features/plans/services'
 import { formatToMonetaryValue } from '@m-care/features/@shared/utils'
+import { createSubscription } from '@m-care/features/plans/services'
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 
 interface PlanPaymentModalProps extends DialogProps {
   selectedPlan: {

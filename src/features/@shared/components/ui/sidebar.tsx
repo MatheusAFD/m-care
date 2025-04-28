@@ -2,14 +2,14 @@
 'use client'
 
 import * as React from 'react'
-import { Slot } from '@radix-ui/react-slot'
+
+import { usePathname } from 'next/navigation'
+
 import { VariantProps, cva } from 'class-variance-authority'
 import { PanelLeft } from 'lucide-react'
 
 import { useIsMobile } from '@m-care/features/@shared/components/hooks/use-mobile'
-
 import { Button } from '@m-care/features/@shared/components/ui/button'
-
 import { Separator } from '@m-care/features/@shared/components/ui/separator'
 import {
   Sheet,
@@ -25,8 +25,10 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from '@m-care/features/@shared/components/ui/tooltip'
+import { Slot } from '@radix-ui/react-slot'
+
 import { cn } from '../../lib'
-import { usePathname } from 'next/navigation'
+
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state'
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7

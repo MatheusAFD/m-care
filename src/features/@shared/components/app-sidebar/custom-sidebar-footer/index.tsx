@@ -1,5 +1,11 @@
 import { ChevronUp, LogOut, UserRoundPen, Wallet } from 'lucide-react'
 
+import { RolesEnum } from '@m-care/features/@shared/enums'
+import { getNameInitials } from '@m-care/features/@shared/utils'
+import { signOut } from '@m-care/features/auth/sign-out/actions'
+import { getMe } from '@m-care/features/users/services'
+
+import { Restricted } from '../../restricted'
 import {
   Avatar,
   AvatarFallback,
@@ -13,12 +19,6 @@ import {
   TooltipContent,
   TooltipTrigger
 } from '../../ui'
-
-import { getMe } from '@m-care/features/users/services'
-import { getNameInitials } from '@m-care/features/@shared/utils'
-import { RolesEnum } from '@m-care/features/@shared/enums'
-import { Restricted } from '../../restricted'
-import { signOut } from '@m-care/features/auth/sign-out/actions'
 
 export const CustomSidebarFooter = async () => {
   const [error, data] = await getMe()

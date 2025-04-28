@@ -1,4 +1,5 @@
 import { Building2, Calendar, Home, Users } from 'lucide-react'
+
 import { RolesEnum } from '../@shared/enums'
 
 export const sidebarMenuItems = [

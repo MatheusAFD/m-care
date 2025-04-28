@@ -1,7 +1,8 @@
 'use server'
 
-import { jwtDecode } from 'jwt-decode'
 import { cookies } from 'next/headers'
+
+import { jwtDecode } from 'jwt-decode'
 
 export const getAuthToken = async () => {
   const cookieService = await cookies()

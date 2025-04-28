@@ -1,6 +1,7 @@
 import { httpClientFetch } from '@m-care/features/@shared/lib'
-import { GetUnitsResponse } from '../../types/get-units-response'
 import { ErrorResponse } from '@m-care/features/@shared/types'
+
+import { GetUnitsResponse } from '../../types/get-units-response'
 import { GetUnitsFilters } from './types'
 
 export const getUnits = async ({

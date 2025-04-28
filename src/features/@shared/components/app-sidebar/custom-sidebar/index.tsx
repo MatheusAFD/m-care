@@ -1,3 +1,5 @@
+import { Suspense } from 'react'
+
 import {
   Sidebar,
   SidebarContent,
@@ -12,7 +14,6 @@ import {
   CustomSidebarFooter,
   AvatarSkeleton
 } from '../'
-import { Suspense } from 'react'
 
 export function CustomSidebar() {
   return (

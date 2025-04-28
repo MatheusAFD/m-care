@@ -1,6 +1,7 @@
+import { PropsWithChildren } from 'react'
+
 import { Metadata } from 'next'
 import Image from 'next/image'
-import { PropsWithChildren } from 'react'
 
 export const metadata: Metadata = {
   title: 'Entrar'

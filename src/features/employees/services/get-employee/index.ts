@@ -1,6 +1,7 @@
 import { httpClientFetch } from '@m-care/features/@shared/lib'
-import { Employee } from '../../types'
 import { ErrorResponse } from '@m-care/features/@shared/types'
+
+import { Employee } from '../../types'
 
 interface GetEmployeeParams {
   employeeId: string

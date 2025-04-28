@@ -1,10 +1,15 @@
 'use client'
 import { useState } from 'react'
 
-import { PaginationButtons } from '@m-care/features/@shared/components'
+import {
+  Conditional,
+  NoDataBackground,
+  PaginationButtons
+} from '@m-care/features/@shared/components'
 import { useDisclosure, useUrlFilters } from '@m-care/features/@shared/hooks'
 import { useGetUnits } from '@m-care/features/units/hooks/use-get-units'
 import { GetUnitsResponse } from '@m-care/features/units/types/get-units-response'
+
 import { UnitCard } from '../unit-card'
 import { UnitEditModal } from '../unit-edit-modal'
 
@@ -38,17 +43,29 @@ export const UnitsList = (props: UnitsListProps) => {
     setSelectedUnit('')
   }
 
+  const hasData = Boolean(data?.pagination?.totalPages)
+
   return (
     <>
-      <div className="flex flex-wrap gap-4">
-        {data?.data.map((unit) => (
-          <UnitCard
-            key={unit.id}
-            unit={unit}
-            onEdit={() => handleEdit(unit.id)}
-          />
-        ))}
-      </div>
+      <Conditional condition={hasData}>
+        <div className="flex flex-wrap gap-4">
+          {data?.data.map((unit) => (
+            <UnitCard
+              key={unit.id}
+              unit={unit}
+              onEdit={() => handleEdit(unit.id)}
+            />
+          ))}
+        </div>
+      </Conditional>
+
+      <Conditional condition={!hasData}>
+        <NoDataBackground
+          src="/no-data-background/units.svg"
+          alt="Imagem de um prédio em formato de desenho."
+          text="Nenhuma unidade cadastrada."
+        />
+      </Conditional>
 
       <PaginationButtons
         page={page}
