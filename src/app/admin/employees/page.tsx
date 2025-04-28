@@ -1,42 +1,39 @@
 import { Suspense } from 'react'
 
-import { Plus } from 'lucide-react'
+import { Container, Loading } from '@m-care/features/@shared/components'
 
 import {
-  Container,
-  Loading,
-  SearchFilter
-} from '@m-care/features/@shared/components'
-import { Button } from '@m-care/features/@shared/components/ui'
-import {
   EmployeeContainer,
-  EmployeeRegistrationModal
+  EmployeesPageHeader
 } from '@m-care/features/employees/components'
 import { Metadata } from 'next'
+import { RouteParamsWithFilters } from '@m-care/features/@shared/types'
 
 export const metadata: Metadata = {
   title: 'Colaboradores',
   description: 'Gerenciamento de colaboradores'
 }
 
-export default function EmployeesPage() {
-  return (
-    <Container className="flex flex-col w-full">
-      <header className="flex flex-wrap items-start gap-3 p-8">
-        <EmployeeRegistrationModal>
-          <Button>
-            <Plus />
-            Criar colaborador
-          </Button>
-        </EmployeeRegistrationModal>
+export default async function EmployeesPage({
+  searchParams
+}: RouteParamsWithFilters) {
+  const filters = await searchParams
 
-        <Suspense>
-          <SearchFilter placeholder="Pesquisar colaborador" />
-        </Suspense>
-      </header>
+  const { status = 'active', search = '', page = 1, limit = 20 } = filters
+
+  const filtersParams = {
+    status,
+    search,
+    page,
+    limit
+  }
+
+  return (
+    <Container className="flex flex-col w-full p-8 gap-8">
+      <EmployeesPageHeader />
 
       <Suspense fallback={<Loading />}>
-        <EmployeeContainer />
+        <EmployeeContainer filters={filtersParams} />
       </Suspense>
     </Container>
   )
