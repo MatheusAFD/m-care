@@ -32,8 +32,8 @@ export const UnitsPageHeader = () => {
 
       <div className="flex gap-2 items-center">
         <Toggle
-          variant="outline"
-          size="sm"
+          variant="filter"
+          size="filter"
           pressed={isFiltiringActive}
           onClick={() => handleStatusChange('active')}
         >
@@ -41,8 +41,8 @@ export const UnitsPageHeader = () => {
         </Toggle>
 
         <Toggle
-          variant="outline"
-          size="sm"
+          variant="filter"
+          size="filter"
           pressed={isFiltiringInactive}
           onClick={() => handleStatusChange('inactive')}
         >
@@ -50,7 +50,7 @@ export const UnitsPageHeader = () => {
         </Toggle>
 
         <p
-          className="text-xs font-medium underline cursor-pointer"
+          className="text-xs font-medium underline cursor-pointer hover:text-gray-500 transition-colors"
           onClick={handleReset}
         >
           Resetar filtros
